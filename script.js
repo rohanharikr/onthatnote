@@ -1,63 +1,76 @@
-let counter = 0; 
+let counter = 0;
 let inputlength = 0;
 let timeCreated;
 let notetitle;
 let createList = 0;
 let completed = 0;
 
+function changemode(){
+	$("#sun").toggle();
+	$("#moon").toggle();
+}
 
+$("#tostore").keyup(function () {
+	if (event.keyCode === 13) {
+		event.preventDefault();
+		storeLocal();
+	}
 
+	if (inputlength > 2) {
+		$("#helper").show();
+	} else {
+		$("#helper").hide();
+	}
 
-$( "#tostore" ).keyup(function() {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    storeLocal();
-  }
-
-  inputlength = $('#tostore').val().length;
-  $("#charlength").html(inputlength);
+	inputlength = $('#tostore').val().length;
+	$("#charlength").html(inputlength);
 
 });
 
-$( "#branding" ).keyup(function() {
+$("#branding").keyup(function () {
 	title = $('#branding').find('span').html();
 	$('title').html(title);
 	localStorage.setItem("title", title);
 
-	if($('title').find('span').html() < 1){
+	if ($('title').find('span').html() < 1) {
 		$('title').find('span').html("add a note.")
 	}
 });
 
-$( "#branding" ).click(function() {
-	 let title = $('#branding').find('span').html();
+$("#tostore").click(function () {
+	
+});
 
-	if (title == "give me a name"){
-		$('#branding').find('span').html("");
+$("#branding").click(function () {
+	let title = $('#branding').find('span').html();
+
+	if (title == "give me a name") {
+		$('#branding').find('span').html('');
 	}
 });
 
-(function getinputvalue(){
+(function getinputvalue() {
 
 	// $('#branding').find('br').remove();
 
 	inputlength = $('#tostore').val().length;
 	$("#charlength").html(inputlength);
 
-	if(localStorage.getItem("title") !== null){
+	if (localStorage.getItem("title") !== null) {
 		$('#branding').find('span').html(localStorage.getItem("title"));
 		$('title').html(localStorage.getItem("title"));
 	}
 
 })();
 
-function storeLocal(){
+function storeLocal() {
+	$("#helper").hide();
 	const input = $('#tostore').val();
-	timeCreated = Date().toLocaleString() ;
+	timeCreated = Date().toLocaleString();
 
 	$("#completed, #list").show();
 
-	if (input !== ""){
+	if (input !== "") {
 		counter++;
 		$("#list").append(`<div class="list"><input type="checkbox" id="checkbox" name="checkbox${counter}"><label for="checkbox${counter}">${input}</div>`)
 		$('#tostore').val("");
@@ -66,39 +79,46 @@ function storeLocal(){
 	}
 
 	createList++;
-    $(".listcounter").html(createList);
+	$(".listcounter").html(createList);
 }
 
 function deleteItem() {
 	// console.log("dingo")
-    $(this).remove();
+	$(this).remove();
 }
 
-function deleteList(){
+function deleteList() {
 	$("#list").html("");
 	localStorage.clear();
 }
 
 
-$(document).on('mousedown', '#checkbox', function() {
+$(document).on('mousedown', '#checkbox', function () {
 
-      if (!$(this).is(':checked')) {
-		
-      		let complete = $(this).find('label').html();
-      		completed++;
+	if (!$(this).is(':checked')) {
 
-      		let checked = (createList - completed)
+		let complete = $(this).find('label').html();
+		completed++;
 
-      		$(".completed").html(checked);
-            $(".checked").html(completed);
-            $("#completed").append(`<div class="list"><input style="border: 1px solid #696969" type="checkbox" id="checkbox" name="checkbox${counter}" checked><label for="checkbox${counter}">${complete}</div>`)
-            // $(this).fadeOut(600, function() {$(this).parent().remove(); });
-            $(this).parent().remove();
-        }
+		let checked = (createList - completed)
+
+		$(".completed").html(checked);
+		$(".checked").html(completed);
+		$("#completed").append(`<div class="list"><input style="border: 1px solid #696969" type="checkbox" id="checkbox" name="checkbox${counter}" checked><label for="checkbox${counter}">${complete}</div>`)
+		// $(this).fadeOut(600, function() {$(this).parent().remove(); });
+		$(this).parent().remove();
+	}
 });
 
 
+clearlocalstorage = () => {
+	localStorage.clear();
+	location.reload();
+};
 
+window.addEventListener('click', function(e){   
+  if (!document.getElementById('tostore').contains(e.target)){
+  	storeLocal();
+  }
+});
 
-
-clearlocalstorage = () => {localStorage.clear(); location.reload();};

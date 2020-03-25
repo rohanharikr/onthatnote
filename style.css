@@ -1,19 +1,20 @@
-body{
+
+::selection {
+	color: white;
+	background: black;
+}
+
+body {
 	padding: 100px 15%;
 	font-family: Roboto;
 	margin: 0;
+	background-color: white;
 }
 
-::selection {
-  color: white;
-  background: black;
-}
-
-#branding{
+#branding {
 	height: 30px;
 	position: fixed;
 	top: 10px;
-	background-color: white;
 	left: 0;
 	color: black;
 	font-weight: 700;
@@ -24,11 +25,11 @@ body{
 	white-space: nowrap;
 }
 
-#branding span{
+#branding span {
 	outline: none;
 }
 
-input{
+input {
 	border: none;
 	border-bottom: 1px solid #d3d3d3;
 	width: 100%;
@@ -36,26 +37,26 @@ input{
 	padding-bottom: 10px;
 }
 
-input::placeholder{
+input::placeholder {
 	color: #d3d3d3;
 }
 
-#taskmanager{
+#taskmanager {
 	margin-top: 65px;
 	display: flex;
 	align-items: flex-start;
 	justify-content: space-between;
 }
 
-#list{
+#list {
 	width: 40%;
 }
 
-#completed{
+#completed {
 	width: 40%;
 }
 
-.list{
+.list {
 	display: flex;
 	align-items: center;
 	line-height: 45px;
@@ -67,6 +68,10 @@ input[type="checkbox"] {
 	height: 1.3rem;
 	border: 1px solid black;
 	margin: 0;
+}
+
+input[type="text"]:focus {
+	outline: none;
 }
 
 input[type="checkbox"]:focus {
@@ -96,7 +101,7 @@ input[type="checkbox"]:hover {
 	background: none;
 }
 
-input[id="checkbox"]:hover::after{
+input[id="checkbox"]:hover::after {
 	position: absolute;
 	top: 0.28rem;
 	left: 0.26rem;
@@ -109,11 +114,11 @@ input[id="checkbox"]:hover::after{
 	transform: rotate(-45deg);
 }
 
-label{
+label {
 	margin-left: 10px;
 }
 
-#charlengthwrapper{
+#charlengthwrapper {
 	font-size: 12px;
 	display: block;
 	text-align: right;
@@ -121,18 +126,18 @@ label{
 	color: #696969;
 }
 
-.list:hover #timecreated{
+.list:hover #timecreated {
 	visibility: visible;
 }
 
-#timecreated{
+#timecreated {
 	visibility: hidden;
 	font-size: 10px;
 	color: #d3d3d3;
 	display: inline-block;
 }
 
-.tm--title{
+.tm--title {
 	text-transform: uppercase;
 	font-size: 12px;
 	font-weight: 500;
@@ -140,14 +145,25 @@ label{
 	margin-bottom: 30px;
 }
 
+#helper{
+	display: none;
+}
+
 @media screen and (max-width: 500px) {
-	#taskmanager{
+	#taskmanager {
 		margin-top: 65px;
 		display: flex;
 		flex-direction: column;
 	}
-
-	#list{
+	#list {
+		width: 100%;
 		margin-bottom: 40px;
 	}
+
+	#helper{
+		display: block;
+		color: #a1a1a185;
+		margin-top: 25px;
+	}
 }
+
