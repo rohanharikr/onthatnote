@@ -40,6 +40,21 @@ input::placeholder{
 	color: #d3d3d3;
 }
 
+#taskmanager{
+	margin-top: 65px;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+#list{
+	width: 40%;
+}
+
+#completed{
+	width: 40%;
+}
+
 .list{
 	display: flex;
 	align-items: center;
@@ -50,7 +65,7 @@ input[type="checkbox"] {
 	-webkit-appearance: none;
 	width: 1.3rem;
 	height: 1.3rem;
-	border: 1px solid #808080;
+	border: 1px solid black;
 	margin: 0;
 }
 
@@ -64,6 +79,24 @@ input[type="checkbox"]:checked {
 }
 
 input[id="checkbox"]:checked::after {
+	position: absolute;
+	top: 0.28rem;
+	left: 0.26rem;
+	content: "";
+	width: 0.6rem;
+	height: 0.3rem;
+	border: 1.5px solid black;
+	border-right: none;
+	border-top: none;
+	transform: rotate(-45deg);
+}
+
+input[type="checkbox"]:hover {
+	position: relative;
+	background: none;
+}
+
+input[id="checkbox"]:hover::after{
 	position: absolute;
 	top: 0.28rem;
 	left: 0.26rem;
@@ -97,4 +130,24 @@ label{
 	font-size: 10px;
 	color: #d3d3d3;
 	display: inline-block;
+}
+
+.tm--title{
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: 500;
+	color: #7d7d7d;
+	margin-bottom: 30px;
+}
+
+@media screen and (max-width: 500px) {
+	#taskmanager{
+		margin-top: 65px;
+		display: flex;
+		flex-direction: column;
+	}
+
+	#list{
+		margin-bottom: 40px;
+	}
 }

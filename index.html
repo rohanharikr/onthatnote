@@ -9,10 +9,13 @@
 	<div id="branding"><span contenteditable="true">give me a name</span></div>
 	<input type="text" name="field" id="tostore" placeholder="Add note" maxlength="50" />
 	<div id="charlengthwrapper"><span id="charlength">0</span>/50</div>
-	<br><br><br>
 	<!-- <button onclick="storeLocal();" id="submit">Submit</button> -->
 	<!-- <button onclick="deleteList();">Delete All</button> -->
-	<div id="list"></div>
+	<div id="taskmanager">
+		<div id="list" style="display: none;"><div class="tm--title">In Progress (<span class="completed">0</span>/<span class="listcounter"></span>)</div></div>
+		<div id="completed" style="display: none;"><div class="tm--title">Completed (<span class="checked">0</span>/<span class="listcounter"></span>)</div></div>
+	</div>
+	<!-- <button style="position: fixed; bottom: 50px" onclick="clearlocalstorage()">Clear local storage</button> -->
 <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
