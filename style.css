@@ -4,6 +4,11 @@ body{
 	margin: 0;
 }
 
+::selection {
+  color: white;
+  background: black;
+}
+
 #branding{
 	height: 30px;
 	position: fixed;
@@ -16,6 +21,10 @@ body{
 	padding: 0px 15%;
 	display: flex;
 	align-items: center;
+	white-space: nowrap;
+}
+
+#branding span{
 	outline: none;
 }
 
@@ -77,4 +86,15 @@ label{
 	text-align: right;
 	margin-top: 10px;
 	color: #696969;
+}
+
+.list:hover #timecreated{
+	visibility: visible;
+}
+
+#timecreated{
+	visibility: hidden;
+	font-size: 10px;
+	color: #d3d3d3;
+	display: inline-block;
 }
