@@ -1,16 +1,11 @@
 let counter = 0; 
 let inputlength = 0;
 let timeCreated = new Date().toLocaleTimeString();
-
-// (function getStore(){
-// 	let store = localStorage.getItem('') || 'nothing to see here';
-// 	console.log(`getting local here: ${store}`)
-// })();
+let title;
 
 $( "#tostore" ).keyup(function() {
   if (event.keyCode === 13) {
     event.preventDefault();
-    // document.getElementById("submit").click();
     storeLocal();
   }
 
@@ -21,9 +16,22 @@ $( "#tostore" ).keyup(function() {
 
 });
 
+$( "#branding" ).keyup(function() {
+	console.log("hmm")
+	title = $('#branding').html();
+
+	localStorage.setItem("title", title);
+
+});
+
 (function getinputvalue(){
 	inputlength = $('#tostore').val().length;
 	$("#charlength").html(inputlength);
+
+	if(localStorage.getItem("title") !== null){
+		$('#branding').html(localStorage.getItem("title"));
+	}
+
 })();
 
 function storeLocal(){
@@ -32,7 +40,6 @@ function storeLocal(){
 	if (input !== ""){
 		counter++;
 		console.log(input);
-		localStorage.setItem(counter, input); 
 		$("#list").append(`<div class="list"><input type="checkbox" id="checkbox" name="checkbox${counter}"><label for="checkbox${counter}">${input}</label></div>`)
 		$('#tostore').val("");
 	} else {
@@ -44,4 +51,3 @@ function deleteList(){
 	$("#list").html("");
 	localStorage.clear();
 }
-
