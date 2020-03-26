@@ -53,6 +53,10 @@ input::placeholder {
 	width: 50%;
 }
 
+#list label{
+	outline: none;
+}
+
 #completed {
 	width: 40%;
 }
@@ -249,4 +253,3 @@ label {
 		margin-top: 25px;
 	}
 }
-
