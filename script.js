@@ -10,22 +10,30 @@ function changemode(){
 	$("#moon").toggle();
 }
 
-$("#tostore").keyup(function () {
+$("#tostore").keyup(function (event) {
 	if (event.keyCode === 13) {
 		event.preventDefault();
 		storeLocal();
 	}
 
-	if (inputlength > 2) {
+	 if (inputlength >= 2) {
 		$("#helper").show();
 	} else {
 		$("#helper").hide();
 	}
-
+	
 	inputlength = $('#tostore').val().length;
 	$("#charlength").html(inputlength);
 
 });
+
+$('#tostore').on('kedown', function() {
+   //code to be executed
+ }).on('keydown', function(e) {
+   if (inputlength >= 2) {
+		$("#helper").show();
+	}
+ });
 
 $("#branding").keyup(function () {
 	title = $('#branding').find('span').html();
@@ -66,13 +74,13 @@ $("#branding").click(function () {
 function storeLocal() {
 	$("#helper").hide();
 	const input = $('#tostore').val();
-	timeCreated = Date().toLocaleString();
+	timeCreated = new Date().toLocaleTimeString();
 
 	$("#completed, #list").show();
 
 	if (input !== "") {
 		counter++;
-		$("#list").append(`<div class="list"><input type="checkbox" id="checkbox" name="checkbox${counter}"><label for="checkbox${counter}">${input}</div>`)
+		$("#list").append(`<div class="list"><input type="checkbox" id="checkbox" name="checkbox${counter}"><label for="checkbox${counter}">${input}</label><span class="timecreated">${timeCreated}</span><span id="deleteitem"><i class="fas fa-trash-alt"></i> Delete</span></div>`)
 		$('#tostore').val("");
 	} else {
 		throw new Error("input field empty");
@@ -80,12 +88,21 @@ function storeLocal() {
 
 	createList++;
 	$(".listcounter").html(createList);
+
+	let checked = (createList - completed)
+	$(".completed").html(checked);
 }
 
-function deleteItem() {
-	// console.log("dingo")
-	$(this).remove();
-}
+$(document).on('click', '#deleteitem', function () {
+	console.log("del")
+	$(this).parent().remove();
+
+	createList--;
+	$(".listcounter").html(createList);
+
+	let checked = (createList - completed)
+	$(".completed").html(checked);
+});
 
 function deleteList() {
 	$("#list").html("");
@@ -104,7 +121,7 @@ $(document).on('mousedown', '#checkbox', function () {
 
 		$(".completed").html(checked);
 		$(".checked").html(completed);
-		$("#completed").append(`<div class="list"><input style="border: 1px solid #696969" type="checkbox" id="checkbox" name="checkbox${counter}" checked><label for="checkbox${counter}">${complete}</div>`)
+		$("#completed").append(`<div class="list"><input style="border: 1px solid #696969" type="checkbox" id="checkbox" name="checkbox${counter}" checked><label for="checkbox${counter}">${complete}</label></div>`)
 		// $(this).fadeOut(600, function() {$(this).parent().remove(); });
 		$(this).parent().remove();
 	}
@@ -117,8 +134,15 @@ clearlocalstorage = () => {
 };
 
 window.addEventListener('click', function(e){   
-  if (!document.getElementById('tostore').contains(e.target)){
+  if (!document.getElementById('tostore').contains(e.target) && $('#tostore').val() !== ""){
   	storeLocal();
   }
+});
+
+
+$("#sort").click(function () {
+	$('#list .list').sort(function(a, b) {
+	    return a.id < b.id ? -1 : 1;
+	}).appendTo('#list');
 });
 

@@ -12,9 +12,9 @@ body {
 }
 
 #branding {
-	height: 30px;
+	height: 50px;
 	position: fixed;
-	top: 10px;
+	top: 0px;
 	left: 0;
 	color: black;
 	font-weight: 700;
@@ -23,6 +23,7 @@ body {
 	display: flex;
 	align-items: center;
 	white-space: nowrap;
+	background-color: white;
 }
 
 #branding span {
@@ -56,7 +57,7 @@ input::placeholder {
 	width: 40%;
 }
 
-.list {
+.list{
 	display: flex;
 	align-items: center;
 	line-height: 45px;
@@ -126,15 +127,29 @@ label {
 	color: #696969;
 }
 
-.list:hover #timecreated {
+.list:hover .timecreated {
 	visibility: visible;
 }
 
-#timecreated {
+.list:hover #deleteitem {
+	visibility: visible;
+}
+
+#sort{
+	margin-left:auto;
+	float: right;
+}
+
+.list:hover{
+	background-image: linear-gradient(to right, white, #f9fbfd);
+}
+
+.timecreated {
 	visibility: hidden;
-	font-size: 10px;
+	font-size: 12px;
 	color: #d3d3d3;
 	display: inline-block;
+	margin-left: auto;
 }
 
 .tm--title {
@@ -146,7 +161,18 @@ label {
 }
 
 #helper{
-	display: none;
+	visibility: hidden;
+}
+
+#deleteitem{
+	font-size: 12px;
+	margin-left: 20px;
+	visibility: hidden;
+	padding-right: 30px;
+}
+
+#deleteitem:hover{
+	color: red;
 }
 
 @media screen and (max-width: 500px) {
@@ -161,7 +187,7 @@ label {
 	}
 
 	#helper{
-		display: block;
+		visibility: visible;
 		color: #a1a1a185;
 		margin-top: 25px;
 	}
