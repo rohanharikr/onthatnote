@@ -50,7 +50,7 @@ input::placeholder {
 }
 
 #list {
-	width: 40%;
+	width: 50%;
 }
 
 #completed {
@@ -114,6 +114,63 @@ input[id="checkbox"]:hover::after {
 	border-top: none;
 	transform: rotate(-45deg);
 }
+
+#completed input[type="checkbox"] {
+	-webkit-appearance: none;
+	width: 1.3rem;
+	height: 1.3rem;
+	border: 1px solid #696969;
+	margin: 0;
+}
+
+#completed input[type="text"]:focus {
+	outline: none;
+}
+
+#completed input[type="checkbox"]:focus {
+	border: 1px solid teal;
+}
+
+#completed input[type="checkbox"]:checked {
+	position: relative;
+	background: none;
+}
+
+#completed input[id="checkbox"]:checked::after {
+	position: absolute;
+	top: 0.28rem;
+	left: 0.26rem;
+	content: "";
+	width: 0.6rem;
+	height: 0.3rem;
+	border: 1.5px solid #696969;
+	border-right: none;
+	border-top: none;
+	transform: rotate(-45deg);
+}
+
+#completed input[type="checkbox"]:hover {
+	position: relative;
+	background: none;
+}
+
+#completed input[id="checkbox"]:hover::after {
+	position: absolute;
+	top: 0.28rem;
+	left: 0.26rem;
+	content: "";
+	width: 0.6rem;
+	height: 0.3rem;
+	border: 1.5px solid #696969;
+	border-right: none;
+	border-top: none;
+	transform: rotate(-45deg);
+}
+
+#completed label {
+	color: #696969;
+}
+
 
 label {
 	margin-left: 10px;

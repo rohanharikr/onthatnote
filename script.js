@@ -121,7 +121,7 @@ $(document).on('mousedown', '#checkbox', function () {
 
 		$(".completed").html(checked);
 		$(".checked").html(completed);
-		$("#completed").append(`<div class="list"><input style="border: 1px solid #696969" type="checkbox" id="checkbox" name="checkbox${counter}" checked><label for="checkbox${counter}">${complete}</label></div>`)
+		$("#completed").append(`<div class="list"><input type="checkbox" id="checkbox" name="checkbox${counter}" checked><label for="checkbox${counter}">${complete}</label></div>`)
 		// $(this).fadeOut(600, function() {$(this).parent().remove(); });
 		$(this).parent().remove();
 	}
