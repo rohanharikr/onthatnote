@@ -94,7 +94,7 @@ function storeLocal() {
 }
 
 $(document).on('click', '#deleteitem', function () {
-	console.log("del")
+	// console.log("del")
 	$(this).parent().remove();
 
 	createList--;
@@ -117,11 +117,13 @@ $(document).on('mousedown', '#checkbox', function () {
 		let complete = $(this).find('label').html();
 		completed++;
 
+		var completedTask = $(this).parent().find('label').text();
+
 		let checked = (createList - completed)
 
 		$(".completed").html(checked);
 		$(".checked").html(completed);
-		$("#completed").append(`<div class="list"><input type="checkbox" id="checkbox" name="checkbox${counter}" checked><label for="checkbox${counter}">${complete}</label></div>`)
+		$("#completed").append(`<div class="list"><input type="checkbox" id="checkbox" name="checkbox${counter}" checked><label for="checkbox${counter}">${completedTask}</label></div>`)
 		// $(this).fadeOut(600, function() {$(this).parent().remove(); });
 		$(this).parent().remove();
 	}
@@ -144,5 +146,9 @@ $("#sort").click(function () {
 	$('#list .list').sort(function(a, b) {
 	    return a.id < b.id ? -1 : 1;
 	}).appendTo('#list');
+
+	$('#completed .list').sort(function(a, b) {
+	    return a.id < b.id ? -1 : 1;
+	}).appendTo('#completed');
 });
 
