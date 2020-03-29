@@ -16,7 +16,7 @@ function changemode() {
 $('#tostore').keyup(function(event) {
   inputlength = $('#tostore').val().length;
 
-  if (event.keyCode === 13) {
+  if (event.keyCode === 13){
     event.preventDefault();
     storeLocal();
   }
@@ -36,10 +36,10 @@ function storeLocal() {
   const input = $('#tostore').val();
   timeCreated = new Date().toLocaleTimeString();
 
-  $('#helper').hide();
-  $('#completed, #list').show();
+  $('#helper').hide();  
 
   if (input !== '') {
+    $('#completed, #list').show();
     counter++;
     createList++;
     checked++;
@@ -55,7 +55,7 @@ function storeLocal() {
 }
 
 
-$('#branding').bind('click keyup', (function() {
+$('#branding span').bind('click keyup keydown', (function() {
   title = $('#branding').find('span').html();
   
   $('title').html(title);
@@ -68,8 +68,22 @@ $('#branding').bind('click keyup', (function() {
   if (title == 'give me a name') {
     $('#branding').find('span').html('');
   }
+
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    $('#tostore').focus();
+  }
+
+  if ( $('#branding span').html().length > 30 ) {
+    $('#branding span').attr('contenteditable', 'false');
+  }
 }));
 
+$( "#branding" ).keydown(function() {
+  if (event.keyCode === 8) {
+   $('#branding span').attr('contenteditable', 'true'); 
+  }
+});
 
 $(function getinputvalue() {
   inputlength = $('#tostore').val().length;
@@ -121,7 +135,7 @@ $('#dellocalstorage').click(function clearlocalstorage() {
 
 
 window.addEventListener('click', function(e) {
-  if (!document.getElementById('tostore').contains(e.target) && $('#tostore').val() !== "") {
+  if (!document.getElementById('tostore').contains(e.target) && $('#tostore').val() !== '') {
     storeLocal();
   }
 });
