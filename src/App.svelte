@@ -14,7 +14,7 @@
 	$: tasks = []
 	$: completedTasks = []
 
-	let title = "on that note"
+	$: title = "on that note"
 
 	onMount(async () => {
 		if (window.localStorage.length !== 0){
@@ -120,7 +120,7 @@
 		$: tasks = []
 		$: completedTasks = []
 		isTasksVisible = false;
-		let title = "on that note"
+		title = "on that note"
 		localStorage.clear();
 	}
 </script>
