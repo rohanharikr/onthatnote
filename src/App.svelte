@@ -204,6 +204,8 @@
 	.title{
 		border:none;
 		margin-bottom: 40px;
+		font-size: 18px;
+		font-weight: 600;
 	}
 
 	li{

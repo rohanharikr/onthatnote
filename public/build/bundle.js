@@ -670,7 +670,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Task already exists";
-    			attr_dev(div, "class", "errorMessage svelte-47pcpb");
+    			attr_dev(div, "class", "errorMessage svelte-su5d6v");
     			add_location(div, file, 141, 18, 3127);
     		},
     		m: function mount(target, anchor) {
@@ -719,7 +719,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Reached maximum length";
-    			attr_dev(div, "class", "errorMessage svelte-47pcpb");
+    			attr_dev(div, "class", "errorMessage svelte-su5d6v");
     			add_location(div, file, 142, 27, 3228);
     		},
     		m: function mount(target, anchor) {
@@ -768,7 +768,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Task already completed";
-    			attr_dev(div, "class", "errorMessage svelte-47pcpb");
+    			attr_dev(div, "class", "errorMessage svelte-su5d6v");
     			add_location(div, file, 143, 26, 3331);
     		},
     		m: function mount(target, anchor) {
@@ -885,15 +885,15 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(li0, "class", "listTitle svelte-47pcpb");
+    			attr_dev(li0, "class", "listTitle svelte-su5d6v");
     			add_location(li0, file, 147, 5, 3497);
-    			attr_dev(ul0, "class", "pending svelte-47pcpb");
+    			attr_dev(ul0, "class", "pending svelte-su5d6v");
     			add_location(ul0, file, 146, 4, 3471);
-    			attr_dev(li1, "class", "listTitle svelte-47pcpb");
+    			attr_dev(li1, "class", "listTitle svelte-su5d6v");
     			add_location(li1, file, 155, 5, 3828);
-    			attr_dev(ul1, "class", "completed svelte-47pcpb");
+    			attr_dev(ul1, "class", "completed svelte-su5d6v");
     			add_location(ul1, file, 154, 4, 3800);
-    			attr_dev(div, "class", "flex svelte-47pcpb");
+    			attr_dev(div, "class", "flex svelte-su5d6v");
     			add_location(div, file, 145, 2, 3432);
     		},
     		m: function mount(target, anchor) {
@@ -1065,12 +1065,12 @@ var app = (function () {
     			t0 = text(t0_value);
     			img = element("img");
     			t1 = space();
-    			attr_dev(li, "class", "svelte-47pcpb");
+    			attr_dev(li, "class", "svelte-su5d6v");
     			add_location(li, file, 150, 7, 3644);
-    			attr_dev(img, "class", "deleteTask svelte-47pcpb");
+    			attr_dev(img, "class", "deleteTask svelte-su5d6v");
     			if (img.src !== (img_src_value = "deleteIcon.svg")) attr_dev(img, "src", img_src_value);
     			add_location(img, file, 150, 44, 3681);
-    			attr_dev(div, "class", "taskWrapper svelte-47pcpb");
+    			attr_dev(div, "class", "taskWrapper svelte-su5d6v");
     			add_location(div, file, 149, 6, 3594);
     		},
     		m: function mount(target, anchor) {
@@ -1160,7 +1160,7 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", "svelte-47pcpb");
+    			attr_dev(li, "class", "svelte-su5d6v");
     			add_location(li, file, 157, 6, 3950);
     		},
     		m: function mount(target, anchor) {
@@ -1292,26 +1292,26 @@ var app = (function () {
     			t16 = space();
     			li3 = element("li");
     			li3.textContent = "Made with Svelte by rohanharikr";
-    			attr_dev(input0, "class", "title svelte-47pcpb");
+    			attr_dev(input0, "class", "title svelte-su5d6v");
     			add_location(input0, file, 136, 1, 2880);
-    			attr_dev(div0, "class", "limit svelte-47pcpb");
+    			attr_dev(div0, "class", "limit svelte-su5d6v");
     			add_location(div0, file, 138, 2, 2954);
     			attr_dev(input1, "placeholder", "add a new task");
     			attr_dev(input1, "maxlength", "35");
-    			attr_dev(input1, "class", "svelte-47pcpb");
+    			attr_dev(input1, "class", "svelte-su5d6v");
     			add_location(input1, file, 139, 2, 3001);
     			add_location(div1, file, 137, 1, 2946);
-    			attr_dev(main, "class", "svelte-47pcpb");
+    			attr_dev(main, "class", "svelte-su5d6v");
     			add_location(main, file, 135, 0, 2872);
-    			attr_dev(li0, "class", "svelte-47pcpb");
+    			attr_dev(li0, "class", "svelte-su5d6v");
     			add_location(li0, file, 164, 1, 4083);
-    			attr_dev(li1, "class", "secondary svelte-47pcpb");
+    			attr_dev(li1, "class", "secondary svelte-su5d6v");
     			add_location(li1, file, 165, 1, 4147);
-    			attr_dev(li2, "class", "secondary svelte-47pcpb");
+    			attr_dev(li2, "class", "secondary svelte-su5d6v");
     			add_location(li2, file, 166, 1, 4282);
-    			attr_dev(li3, "class", "secondary svelte-47pcpb");
+    			attr_dev(li3, "class", "secondary svelte-su5d6v");
     			add_location(li3, file, 167, 1, 4324);
-    			attr_dev(footer, "class", "svelte-47pcpb");
+    			attr_dev(footer, "class", "svelte-su5d6v");
     			add_location(footer, file, 163, 0, 4073);
     		},
     		l: function claim(nodes) {
