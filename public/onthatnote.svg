@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120px" height="120px" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#007AFF" x="0" y="0" width="120" height="120"></rect>
+        <rect id="Rectangle" stroke="#000000" stroke-width="4" opacity="0.0749395461" transform="translate(58.110620, 63.320764) rotate(-13.000000) translate(-58.110620, -63.320764) " x="21.0365464" y="28.3207635" width="74.1481481" height="70" rx="5.68000031"></rect>
+        <rect id="Rectangle" stroke="#FFFFFF" stroke-width="4" transform="translate(61.110620, 60.320764) rotate(-13.000000) translate(-61.110620, -60.320764) " x="24.0365464" y="25.3207635" width="74.1481481" height="70" rx="5.68000031"></rect>
+        <path d="M93.663601,41.6970042 L29.8719344,41.6970042" id="Line" stroke="#FFFFFF" stroke-width="4" stroke-linecap="square" transform="translate(61.853416, 41.722719) rotate(-13.000000) translate(-61.853416, -41.722719) "></path>
+        <rect id="Rectangle" fill="#007AFF" transform="translate(88.944949, 30.069786) rotate(-13.000000) translate(-88.944949, -30.069786) " x="82.9449491" y="26.8554999" width="12" height="6.42857143"></rect>
+    </g>
+</svg>

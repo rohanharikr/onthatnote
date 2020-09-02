@@ -1,5 +1,6 @@
 <script>
 	import { slide, fade } from 'svelte/transition';
+	import { onMount } from 'svelte';
 
 	let newNote = ""
 	let isTasksVisible = false
@@ -7,17 +8,42 @@
 	let completedTaskExists = false
 	let maxWordLimitReached = false
 
-	let title
+	let id
 
 	$: total = 0
 	$: tasks = []
 	$: completedTasks = []
 
+	let title = "on that note"
+
+	onMount(async () => {
+		if (window.localStorage.length !== 0){
+			title = localStorage.getItem("title")
+			let localTasks = localStorage.getItem("inProgress")
+			tasks = localTasks.split(',')
+			let localCompletedTasks = localStorage.getItem("completed")
+			completedTasks = localCompletedTasks.split(',')
+			total = localStorage.getItem("count")
+			isTasksVisible = true
+		}
+
+		if(localStorage.getItem("input")){
+			newNote = localStorage.getItem("input")
+		}
+
+		await fetch('https://api.github.com/repos/rohanharikr/onthatnote/commits')
+			.then((response) => response.json())
+			.then((data) => {
+			id = data[0].sha.slice(0, 7)
+		})
+	});
+
 	function addTodo(){
 		if (!tasks.includes(newNote) && !completedTasks.includes(newNote)){
 			tasks = [...tasks, newNote]
 			newNote = ""
-			total++
+			total++;
+			storeLocally()
 		} else if(completedTasks.includes(newNote)){
 			completedTaskExists = true
 			setTimeout(()=>completedTaskExists = false, 2000)
@@ -33,6 +59,7 @@
 		completedTasks = completedTasks.filter(function(value){ 
 			return value !== i
 		})
+		storeLocally()
 	}
 
 	function deleteTodo(i,del){
@@ -40,7 +67,9 @@
 			return value !== i
 		})
 
-		if(total === 0 && completedTasks.length === 0){
+		storeLocally()
+
+		if(tasks.length === 0 && completedTasks.length === 0){
 			isTasksVisible = false
 		}
 
@@ -49,10 +78,18 @@
 		}
 	}
 
+	function storeLocally(){
+		localStorage.setItem("title", title); 
+		localStorage.setItem("inProgress", tasks);
+		localStorage.setItem("completed", completedTasks);
+		localStorage.setItem("count", total);
+		localStorage.setItem("input", newNote);
+	}
+
 	function done(i){
 		completedTasks = [...completedTasks, i]
 		deleteTodo(i);
-		console.log(completedTasks);
+		storeLocally()
 	}
 	
 	function handleKeydown(event) {
@@ -68,6 +105,22 @@
 		} else{
 			maxWordLimitReached = false
 		}
+		storeLocally()
+	}
+
+	function makeNote(){
+		if(newNote){
+			addTodo()
+		}
+	}
+
+	function startOver(){
+		let newNote = ""
+		$: total = 0
+		$: tasks = []
+		$: completedTasks = []
+		isTasksVisible = false;
+		localStorage.clear();
 	}
 </script>
 
@@ -75,12 +128,17 @@
 	<title>{title || "on that note"}</title>
 </svelte:head>
 
+<svelte:window on:click={makeNote}></svelte:window>
+
 <main>
-	<input placeholder="add a new task" maxlength="35" bind:value={title} on:keydown={handleKeydown}>
+	<input class="title" bind:value={title} on:keyup={storeLocally}>
+	<div>
+		<div class="limit">{newNote.length}/35</div>
+		<input placeholder="add a new task" maxlength="35" bind:value={newNote} on:keydown={handleKeydown}>
+	</div>
 	{#if taskExists }<div class="errorMessage" transition:slide>Task already exists</div>{/if}
 	{#if maxWordLimitReached }<div class="errorMessage" transition:slide>Reached maximum length</div>{/if}
 	{#if completedTaskExists}<div class="errorMessage" transition:slide>Task already completed</div>{/if}
-	<div class="limit">{newNote.length}/35</div>
 	{#if isTasksVisible}
 		<div class="flex" transition:fade>
 				<ul class="pending">
@@ -100,13 +158,49 @@
 		</div>
 	{/if}
 </main>
+<footer>
+	<li on:click={startOver}>Delete history / Make a new list</li>
+	<li class="secondary" on:click={()=>location.href="https://github.com/rohanharikr/onthatnote/tree/svelte"}>Code on Github • {id}</li>
+	<li class="secondary">Hosted on now</li>
+	<li class="secondary" on:click={()=>location.href="https://www.twitter.com/rohanharikr"}>Made with Svelte by rohanharikr</li>
+</footer>
+
 
 <style>
 	main{
 		width: 80%;
 		margin: auto;
-		padding: 60px 0;
+		padding: 20px 0;
 		position: relative;
+	}
+
+	footer{
+		width: 80%;
+		display: flex;
+		bottom: 20px;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 8px;
+		font-size: 12px;
+	}
+
+	footer .secondary{
+		opacity: 0.4;
+	}
+
+	footer li{
+		margin-right: 10px;
+	}
+
+	footer li:hover{
+		cursor: pointer;
+		text-decoration: none;
+	}
+
+	.title{
+		border:none;
+		margin-bottom: 40px;
 	}
 
 	li{
@@ -223,7 +317,7 @@
 		font-size: 12px !important;
 		position: absolute;
 		right: 10px;
-		top: 68px;
+		top: 112px;
 	}
 
 	li{
@@ -237,6 +331,34 @@
 
 	ul li {
 		width: auto;
+	}
+
+	@media only screen and (max-width: 600px){
+		.flex{
+			flex-direction: column;
+			width: 100%;
+		}
+
+		ul{
+			width: 100% !important;
+		}
+
+		li{
+			width: 100% !important;
+		}
+		.taskWrapper{
+			width: 100% !important;
+		}
+		.completed{
+			margin-top: 46px;
+		}
+		.deleteTask{
+			display: block;
+		}
+
+		footer .secondary{
+			display: none;
+		}
 	}
 
 </style>
