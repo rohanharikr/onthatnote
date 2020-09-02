@@ -120,6 +120,7 @@
 		$: tasks = []
 		$: completedTasks = []
 		isTasksVisible = false;
+		let title = "on that note"
 		localStorage.clear();
 	}
 </script>
