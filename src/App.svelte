@@ -111,6 +111,8 @@
 	function makeNote(){
 		if(newNote){
 			addTodo()
+			isTasksVisible = true
+			total++
 		}
 	}
 
@@ -335,6 +337,10 @@
 	}
 
 	@media only screen and (max-width: 600px){
+		main{
+			width: 90%;
+			padding: 10px 0;
+		}
 		.flex{
 			flex-direction: column;
 			width: 100%;
@@ -342,6 +348,10 @@
 
 		ul{
 			width: 100% !important;
+		}
+
+		footer{
+			width: 82%;
 		}
 
 		li{
