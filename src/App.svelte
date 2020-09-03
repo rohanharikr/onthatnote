@@ -1,6 +1,8 @@
 <script>
-	import { slide, fade } from 'svelte/transition';
-	import { onMount } from 'svelte';
+	import { slide, fade } from 'svelte/transition'
+	import { onMount } from 'svelte'
+
+	import countapi from 'countapi-js'
 
 	let newNote = ""
 	let isTasksVisible = false
@@ -9,6 +11,8 @@
 	let maxWordLimitReached = false
 
 	let id
+
+	let hits
 
 	$: total = 0
 	$: tasks = []
@@ -36,6 +40,10 @@
 			.then((data) => {
 			id = data[0].sha.slice(0, 7)
 		})
+	});
+
+	countapi.visits('global').then((result) => {
+	   hits = result.value
 	});
 
 	function addTodo(){
@@ -162,7 +170,9 @@
 	{/if}
 </main>
 <footer>
+	<!-- {hits} -->
 	<li on:click={startOver}>Delete history / Make a new list</li>
+	<li class="secondary">{hits || "..."} happy souls</li>
 	<li class="secondary" on:click={()=>location.href="https://github.com/rohanharikr/onthatnote/tree/svelte"}>Code on Github • {id}</li>
 	<li class="secondary">Hosted on now</li>
 	<li class="secondary" on:click={()=>location.href="https://www.twitter.com/rohanharikr"}>Made with Svelte by rohanharikr</li>

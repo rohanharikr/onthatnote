@@ -643,6 +643,697 @@ var app = (function () {
         };
     }
 
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+    function createCommonjsModule(fn, basedir, module) {
+    	return module = {
+    	  path: basedir,
+    	  exports: {},
+    	  require: function (path, base) {
+          return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
+        }
+    	}, fn(module, module.exports), module.exports;
+    }
+
+    function commonjsRequire () {
+    	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
+    }
+
+    var browserPonyfill = createCommonjsModule(function (module, exports) {
+    var __self__ = (function (root) {
+    function F() {
+    this.fetch = false;
+    this.DOMException = root.DOMException;
+    }
+    F.prototype = root;
+    return new F();
+    })(typeof self !== 'undefined' ? self : commonjsGlobal);
+    (function(self) {
+
+    var irrelevant = (function (exports) {
+      var support = {
+        searchParams: 'URLSearchParams' in self,
+        iterable: 'Symbol' in self && 'iterator' in Symbol,
+        blob:
+          'FileReader' in self &&
+          'Blob' in self &&
+          (function() {
+            try {
+              new Blob();
+              return true
+            } catch (e) {
+              return false
+            }
+          })(),
+        formData: 'FormData' in self,
+        arrayBuffer: 'ArrayBuffer' in self
+      };
+
+      function isDataView(obj) {
+        return obj && DataView.prototype.isPrototypeOf(obj)
+      }
+
+      if (support.arrayBuffer) {
+        var viewClasses = [
+          '[object Int8Array]',
+          '[object Uint8Array]',
+          '[object Uint8ClampedArray]',
+          '[object Int16Array]',
+          '[object Uint16Array]',
+          '[object Int32Array]',
+          '[object Uint32Array]',
+          '[object Float32Array]',
+          '[object Float64Array]'
+        ];
+
+        var isArrayBufferView =
+          ArrayBuffer.isView ||
+          function(obj) {
+            return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+          };
+      }
+
+      function normalizeName(name) {
+        if (typeof name !== 'string') {
+          name = String(name);
+        }
+        if (/[^a-z0-9\-#$%&'*+.^_`|~]/i.test(name)) {
+          throw new TypeError('Invalid character in header field name')
+        }
+        return name.toLowerCase()
+      }
+
+      function normalizeValue(value) {
+        if (typeof value !== 'string') {
+          value = String(value);
+        }
+        return value
+      }
+
+      // Build a destructive iterator for the value list
+      function iteratorFor(items) {
+        var iterator = {
+          next: function() {
+            var value = items.shift();
+            return {done: value === undefined, value: value}
+          }
+        };
+
+        if (support.iterable) {
+          iterator[Symbol.iterator] = function() {
+            return iterator
+          };
+        }
+
+        return iterator
+      }
+
+      function Headers(headers) {
+        this.map = {};
+
+        if (headers instanceof Headers) {
+          headers.forEach(function(value, name) {
+            this.append(name, value);
+          }, this);
+        } else if (Array.isArray(headers)) {
+          headers.forEach(function(header) {
+            this.append(header[0], header[1]);
+          }, this);
+        } else if (headers) {
+          Object.getOwnPropertyNames(headers).forEach(function(name) {
+            this.append(name, headers[name]);
+          }, this);
+        }
+      }
+
+      Headers.prototype.append = function(name, value) {
+        name = normalizeName(name);
+        value = normalizeValue(value);
+        var oldValue = this.map[name];
+        this.map[name] = oldValue ? oldValue + ', ' + value : value;
+      };
+
+      Headers.prototype['delete'] = function(name) {
+        delete this.map[normalizeName(name)];
+      };
+
+      Headers.prototype.get = function(name) {
+        name = normalizeName(name);
+        return this.has(name) ? this.map[name] : null
+      };
+
+      Headers.prototype.has = function(name) {
+        return this.map.hasOwnProperty(normalizeName(name))
+      };
+
+      Headers.prototype.set = function(name, value) {
+        this.map[normalizeName(name)] = normalizeValue(value);
+      };
+
+      Headers.prototype.forEach = function(callback, thisArg) {
+        for (var name in this.map) {
+          if (this.map.hasOwnProperty(name)) {
+            callback.call(thisArg, this.map[name], name, this);
+          }
+        }
+      };
+
+      Headers.prototype.keys = function() {
+        var items = [];
+        this.forEach(function(value, name) {
+          items.push(name);
+        });
+        return iteratorFor(items)
+      };
+
+      Headers.prototype.values = function() {
+        var items = [];
+        this.forEach(function(value) {
+          items.push(value);
+        });
+        return iteratorFor(items)
+      };
+
+      Headers.prototype.entries = function() {
+        var items = [];
+        this.forEach(function(value, name) {
+          items.push([name, value]);
+        });
+        return iteratorFor(items)
+      };
+
+      if (support.iterable) {
+        Headers.prototype[Symbol.iterator] = Headers.prototype.entries;
+      }
+
+      function consumed(body) {
+        if (body.bodyUsed) {
+          return Promise.reject(new TypeError('Already read'))
+        }
+        body.bodyUsed = true;
+      }
+
+      function fileReaderReady(reader) {
+        return new Promise(function(resolve, reject) {
+          reader.onload = function() {
+            resolve(reader.result);
+          };
+          reader.onerror = function() {
+            reject(reader.error);
+          };
+        })
+      }
+
+      function readBlobAsArrayBuffer(blob) {
+        var reader = new FileReader();
+        var promise = fileReaderReady(reader);
+        reader.readAsArrayBuffer(blob);
+        return promise
+      }
+
+      function readBlobAsText(blob) {
+        var reader = new FileReader();
+        var promise = fileReaderReady(reader);
+        reader.readAsText(blob);
+        return promise
+      }
+
+      function readArrayBufferAsText(buf) {
+        var view = new Uint8Array(buf);
+        var chars = new Array(view.length);
+
+        for (var i = 0; i < view.length; i++) {
+          chars[i] = String.fromCharCode(view[i]);
+        }
+        return chars.join('')
+      }
+
+      function bufferClone(buf) {
+        if (buf.slice) {
+          return buf.slice(0)
+        } else {
+          var view = new Uint8Array(buf.byteLength);
+          view.set(new Uint8Array(buf));
+          return view.buffer
+        }
+      }
+
+      function Body() {
+        this.bodyUsed = false;
+
+        this._initBody = function(body) {
+          this._bodyInit = body;
+          if (!body) {
+            this._bodyText = '';
+          } else if (typeof body === 'string') {
+            this._bodyText = body;
+          } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+            this._bodyBlob = body;
+          } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+            this._bodyFormData = body;
+          } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+            this._bodyText = body.toString();
+          } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+            this._bodyArrayBuffer = bufferClone(body.buffer);
+            // IE 10-11 can't handle a DataView body.
+            this._bodyInit = new Blob([this._bodyArrayBuffer]);
+          } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+            this._bodyArrayBuffer = bufferClone(body);
+          } else {
+            this._bodyText = body = Object.prototype.toString.call(body);
+          }
+
+          if (!this.headers.get('content-type')) {
+            if (typeof body === 'string') {
+              this.headers.set('content-type', 'text/plain;charset=UTF-8');
+            } else if (this._bodyBlob && this._bodyBlob.type) {
+              this.headers.set('content-type', this._bodyBlob.type);
+            } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+              this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+            }
+          }
+        };
+
+        if (support.blob) {
+          this.blob = function() {
+            var rejected = consumed(this);
+            if (rejected) {
+              return rejected
+            }
+
+            if (this._bodyBlob) {
+              return Promise.resolve(this._bodyBlob)
+            } else if (this._bodyArrayBuffer) {
+              return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+            } else if (this._bodyFormData) {
+              throw new Error('could not read FormData body as blob')
+            } else {
+              return Promise.resolve(new Blob([this._bodyText]))
+            }
+          };
+
+          this.arrayBuffer = function() {
+            if (this._bodyArrayBuffer) {
+              return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
+            } else {
+              return this.blob().then(readBlobAsArrayBuffer)
+            }
+          };
+        }
+
+        this.text = function() {
+          var rejected = consumed(this);
+          if (rejected) {
+            return rejected
+          }
+
+          if (this._bodyBlob) {
+            return readBlobAsText(this._bodyBlob)
+          } else if (this._bodyArrayBuffer) {
+            return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+          } else if (this._bodyFormData) {
+            throw new Error('could not read FormData body as text')
+          } else {
+            return Promise.resolve(this._bodyText)
+          }
+        };
+
+        if (support.formData) {
+          this.formData = function() {
+            return this.text().then(decode)
+          };
+        }
+
+        this.json = function() {
+          return this.text().then(JSON.parse)
+        };
+
+        return this
+      }
+
+      // HTTP methods whose capitalization should be normalized
+      var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'];
+
+      function normalizeMethod(method) {
+        var upcased = method.toUpperCase();
+        return methods.indexOf(upcased) > -1 ? upcased : method
+      }
+
+      function Request(input, options) {
+        options = options || {};
+        var body = options.body;
+
+        if (input instanceof Request) {
+          if (input.bodyUsed) {
+            throw new TypeError('Already read')
+          }
+          this.url = input.url;
+          this.credentials = input.credentials;
+          if (!options.headers) {
+            this.headers = new Headers(input.headers);
+          }
+          this.method = input.method;
+          this.mode = input.mode;
+          this.signal = input.signal;
+          if (!body && input._bodyInit != null) {
+            body = input._bodyInit;
+            input.bodyUsed = true;
+          }
+        } else {
+          this.url = String(input);
+        }
+
+        this.credentials = options.credentials || this.credentials || 'same-origin';
+        if (options.headers || !this.headers) {
+          this.headers = new Headers(options.headers);
+        }
+        this.method = normalizeMethod(options.method || this.method || 'GET');
+        this.mode = options.mode || this.mode || null;
+        this.signal = options.signal || this.signal;
+        this.referrer = null;
+
+        if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+          throw new TypeError('Body not allowed for GET or HEAD requests')
+        }
+        this._initBody(body);
+      }
+
+      Request.prototype.clone = function() {
+        return new Request(this, {body: this._bodyInit})
+      };
+
+      function decode(body) {
+        var form = new FormData();
+        body
+          .trim()
+          .split('&')
+          .forEach(function(bytes) {
+            if (bytes) {
+              var split = bytes.split('=');
+              var name = split.shift().replace(/\+/g, ' ');
+              var value = split.join('=').replace(/\+/g, ' ');
+              form.append(decodeURIComponent(name), decodeURIComponent(value));
+            }
+          });
+        return form
+      }
+
+      function parseHeaders(rawHeaders) {
+        var headers = new Headers();
+        // Replace instances of \r\n and \n followed by at least one space or horizontal tab with a space
+        // https://tools.ietf.org/html/rfc7230#section-3.2
+        var preProcessedHeaders = rawHeaders.replace(/\r?\n[\t ]+/g, ' ');
+        preProcessedHeaders.split(/\r?\n/).forEach(function(line) {
+          var parts = line.split(':');
+          var key = parts.shift().trim();
+          if (key) {
+            var value = parts.join(':').trim();
+            headers.append(key, value);
+          }
+        });
+        return headers
+      }
+
+      Body.call(Request.prototype);
+
+      function Response(bodyInit, options) {
+        if (!options) {
+          options = {};
+        }
+
+        this.type = 'default';
+        this.status = options.status === undefined ? 200 : options.status;
+        this.ok = this.status >= 200 && this.status < 300;
+        this.statusText = 'statusText' in options ? options.statusText : 'OK';
+        this.headers = new Headers(options.headers);
+        this.url = options.url || '';
+        this._initBody(bodyInit);
+      }
+
+      Body.call(Response.prototype);
+
+      Response.prototype.clone = function() {
+        return new Response(this._bodyInit, {
+          status: this.status,
+          statusText: this.statusText,
+          headers: new Headers(this.headers),
+          url: this.url
+        })
+      };
+
+      Response.error = function() {
+        var response = new Response(null, {status: 0, statusText: ''});
+        response.type = 'error';
+        return response
+      };
+
+      var redirectStatuses = [301, 302, 303, 307, 308];
+
+      Response.redirect = function(url, status) {
+        if (redirectStatuses.indexOf(status) === -1) {
+          throw new RangeError('Invalid status code')
+        }
+
+        return new Response(null, {status: status, headers: {location: url}})
+      };
+
+      exports.DOMException = self.DOMException;
+      try {
+        new exports.DOMException();
+      } catch (err) {
+        exports.DOMException = function(message, name) {
+          this.message = message;
+          this.name = name;
+          var error = Error(message);
+          this.stack = error.stack;
+        };
+        exports.DOMException.prototype = Object.create(Error.prototype);
+        exports.DOMException.prototype.constructor = exports.DOMException;
+      }
+
+      function fetch(input, init) {
+        return new Promise(function(resolve, reject) {
+          var request = new Request(input, init);
+
+          if (request.signal && request.signal.aborted) {
+            return reject(new exports.DOMException('Aborted', 'AbortError'))
+          }
+
+          var xhr = new XMLHttpRequest();
+
+          function abortXhr() {
+            xhr.abort();
+          }
+
+          xhr.onload = function() {
+            var options = {
+              status: xhr.status,
+              statusText: xhr.statusText,
+              headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+            };
+            options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL');
+            var body = 'response' in xhr ? xhr.response : xhr.responseText;
+            resolve(new Response(body, options));
+          };
+
+          xhr.onerror = function() {
+            reject(new TypeError('Network request failed'));
+          };
+
+          xhr.ontimeout = function() {
+            reject(new TypeError('Network request failed'));
+          };
+
+          xhr.onabort = function() {
+            reject(new exports.DOMException('Aborted', 'AbortError'));
+          };
+
+          xhr.open(request.method, request.url, true);
+
+          if (request.credentials === 'include') {
+            xhr.withCredentials = true;
+          } else if (request.credentials === 'omit') {
+            xhr.withCredentials = false;
+          }
+
+          if ('responseType' in xhr && support.blob) {
+            xhr.responseType = 'blob';
+          }
+
+          request.headers.forEach(function(value, name) {
+            xhr.setRequestHeader(name, value);
+          });
+
+          if (request.signal) {
+            request.signal.addEventListener('abort', abortXhr);
+
+            xhr.onreadystatechange = function() {
+              // DONE (success or failure)
+              if (xhr.readyState === 4) {
+                request.signal.removeEventListener('abort', abortXhr);
+              }
+            };
+          }
+
+          xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit);
+        })
+      }
+
+      fetch.polyfill = true;
+
+      if (!self.fetch) {
+        self.fetch = fetch;
+        self.Headers = Headers;
+        self.Request = Request;
+        self.Response = Response;
+      }
+
+      exports.Headers = Headers;
+      exports.Request = Request;
+      exports.Response = Response;
+      exports.fetch = fetch;
+
+      return exports;
+
+    }({}));
+    })(__self__);
+    delete __self__.fetch.polyfill;
+    exports = __self__.fetch; // To enable: import fetch from 'cross-fetch'
+    exports.default = __self__.fetch; // For TypeScript consumers without esModuleInterop.
+    exports.fetch = __self__.fetch; // To enable: import {fetch} from 'cross-fetch'
+    exports.Headers = __self__.Headers;
+    exports.Request = __self__.Request;
+    exports.Response = __self__.Response;
+    module.exports = exports;
+    });
+
+    var lib = createCommonjsModule(function (module) {
+    const BASE_API_PATH = "https://api.countapi.xyz";
+    const validPattern = /^[A-Za-z0-9_\-.]{3,64}$/;
+    const validRegex = new RegExp(validPattern);
+
+    const validatePath = module.exports.validatePath = function(namespace, key) {
+        if(typeof key === "undefined") {
+            if(typeof namespace === "undefined") {
+                return Promise.reject("Missing key");
+            }
+            key = namespace;
+            namespace = undefined;
+        }
+
+        function validName(name) {
+            return validRegex.test(name) || name === ':HOST:' || name === ':PATHNAME:';
+        }
+
+        return new Promise(function(resolve, reject) {
+            if(!validName(key)) {
+                reject(`Key must match ${validPattern}. Got '${namespace}'`);
+                return;
+            }
+            if(!validName(namespace) && typeof namespace !== "undefined" && namespace !== null) {
+                reject(`Namespace must match ${validPattern} or be empty. Got '${namespace}'`);
+                return;
+            }
+            
+            var path = '';
+            if(typeof namespace !== "undefined")
+                path += namespace + '/';
+            path += key;
+            
+            resolve({
+                path: path
+            });
+        });
+    };
+
+    const validateTuple = module.exports.validateTuple = function(namespace, key, value) {
+        if(typeof value === "undefined") {
+            if(typeof key === "undefined") {
+                return Promise.reject("Missing key or value");
+            }
+            value = key;
+            key = undefined;
+        }
+        if(typeof value !== "number") {
+            return Promise.reject("Value is NaN");
+        }
+
+        return validatePath(namespace, key).then(function(result) {
+            return Object.assign({}, { value: value }, result);
+        });
+    };
+
+    function finalize(res) {
+        const valid_responses = [200, 400, 403, 404];
+        if (valid_responses.includes(res.status)) {
+            return res.json().then(function(json) {
+                if(res.status == 400)
+                    return Promise.reject(json.error);
+                return Object.assign({}, {
+                    status: res.status,
+                    path: res.headers.get('X-Path')
+                }, json);
+            });
+        }
+        return Promise.reject("Response from server: " + res.status);
+    }
+
+    function queryParams(params) {
+        return Object.keys(params || {})
+            .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+            .join('&');
+    }
+
+    module.exports.get = function(namespace, key) {
+        return validatePath(namespace, key).then(function(result) {
+            return browserPonyfill(`${BASE_API_PATH}/get/${result.path}`).then(finalize);
+        });
+    };
+
+    module.exports.set = function(namespace, key, value) {
+        return validateTuple(namespace, key, value).then(function(result) {
+            return browserPonyfill(`${BASE_API_PATH}/set/${result.path}?value=${result.value}`).then(finalize);
+        });
+    };
+
+    module.exports.update = function(namespace, key, amount) {
+        return validateTuple(namespace, key, amount).then(function(result) {
+            return browserPonyfill(`${BASE_API_PATH}/update/${result.path}?amount=${result.value}`).then(finalize);
+        });
+    };
+
+    module.exports.hit = function(namespace, key) {
+        return validatePath(namespace, key).then(function(result) {
+            return browserPonyfill(`${BASE_API_PATH}/hit/${result.path}`).then(finalize);
+        });
+    };
+
+    module.exports.info = function(namespace, key) {
+        return validatePath(namespace, key).then(function(result) {
+            return browserPonyfill(`${BASE_API_PATH}/info/${result.path}`).then(finalize);
+        });
+    };
+
+    module.exports.create = function(options) {
+        var params = queryParams(options);
+        return browserPonyfill(`${BASE_API_PATH}/create${params.length > 0 ? '?' + params : ''}`).then(finalize);
+    };
+
+    module.exports.stats = function() {
+        return browserPonyfill(`${BASE_API_PATH}/stats`).then(finalize);
+    };
+
+    module.exports.visits = function(page) {
+        return this.hit(':HOST:', page ? page : ':PATHNAME:');
+    };
+
+    module.exports.event = function(name) {
+        return this.hit(':HOST:', name);
+    };
+    });
+
+    var countapiJs = lib;
+
     /* src/App.svelte generated by Svelte v3.24.1 */
 
     const { window: window_1 } = globals;
@@ -650,17 +1341,17 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[22] = list[i];
+    	child_ctx[23] = list[i];
     	return child_ctx;
     }
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[25] = list[i];
+    	child_ctx[26] = list[i];
     	return child_ctx;
     }
 
-    // (142:1) {#if taskExists }
+    // (150:1) {#if taskExists }
     function create_if_block_3(ctx) {
     	let div;
     	let div_transition;
@@ -671,7 +1362,7 @@ var app = (function () {
     			div = element("div");
     			div.textContent = "Task already exists";
     			attr_dev(div, "class", "errorMessage svelte-su5d6v");
-    			add_location(div, file, 141, 18, 3127);
+    			add_location(div, file, 149, 18, 3249);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -702,14 +1393,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(142:1) {#if taskExists }",
+    		source: "(150:1) {#if taskExists }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (143:1) {#if maxWordLimitReached }
+    // (151:1) {#if maxWordLimitReached }
     function create_if_block_2(ctx) {
     	let div;
     	let div_transition;
@@ -720,7 +1411,7 @@ var app = (function () {
     			div = element("div");
     			div.textContent = "Reached maximum length";
     			attr_dev(div, "class", "errorMessage svelte-su5d6v");
-    			add_location(div, file, 142, 27, 3228);
+    			add_location(div, file, 150, 27, 3350);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -751,14 +1442,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(143:1) {#if maxWordLimitReached }",
+    		source: "(151:1) {#if maxWordLimitReached }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (144:1) {#if completedTaskExists}
+    // (152:1) {#if completedTaskExists}
     function create_if_block_1(ctx) {
     	let div;
     	let div_transition;
@@ -769,7 +1460,7 @@ var app = (function () {
     			div = element("div");
     			div.textContent = "Task already completed";
     			attr_dev(div, "class", "errorMessage svelte-su5d6v");
-    			add_location(div, file, 143, 26, 3331);
+    			add_location(div, file, 151, 26, 3453);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -800,20 +1491,20 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(144:1) {#if completedTaskExists}",
+    		source: "(152:1) {#if completedTaskExists}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (145:1) {#if isTasksVisible}
+    // (153:1) {#if isTasksVisible}
     function create_if_block(ctx) {
     	let div;
     	let ul0;
     	let li0;
     	let t0;
-    	let t1_value = /*tasks*/ ctx[7].length + "";
+    	let t1_value = /*tasks*/ ctx[8].length + "";
     	let t1;
     	let t2;
     	let t3;
@@ -823,7 +1514,7 @@ var app = (function () {
     	let ul1;
     	let li1;
     	let t7;
-    	let t8_value = /*completedTasks*/ ctx[8].length + "";
+    	let t8_value = /*completedTasks*/ ctx[9].length + "";
     	let t8;
     	let t9;
     	let t10;
@@ -831,7 +1522,7 @@ var app = (function () {
     	let t12;
     	let div_transition;
     	let current;
-    	let each_value_1 = /*tasks*/ ctx[7];
+    	let each_value_1 = /*tasks*/ ctx[8];
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -843,7 +1534,7 @@ var app = (function () {
     		each_blocks_1[i] = null;
     	});
 
-    	let each_value = /*completedTasks*/ ctx[8];
+    	let each_value = /*completedTasks*/ ctx[9];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -863,7 +1554,7 @@ var app = (function () {
     			t0 = text("In Progress (");
     			t1 = text(t1_value);
     			t2 = text("/");
-    			t3 = text(/*total*/ ctx[6]);
+    			t3 = text(/*total*/ ctx[7]);
     			t4 = text(")");
     			t5 = space();
 
@@ -877,7 +1568,7 @@ var app = (function () {
     			t7 = text("Completed (");
     			t8 = text(t8_value);
     			t9 = text("/");
-    			t10 = text(/*total*/ ctx[6]);
+    			t10 = text(/*total*/ ctx[7]);
     			t11 = text(")");
     			t12 = space();
 
@@ -886,15 +1577,15 @@ var app = (function () {
     			}
 
     			attr_dev(li0, "class", "listTitle svelte-su5d6v");
-    			add_location(li0, file, 147, 5, 3497);
+    			add_location(li0, file, 155, 5, 3619);
     			attr_dev(ul0, "class", "pending svelte-su5d6v");
-    			add_location(ul0, file, 146, 4, 3471);
+    			add_location(ul0, file, 154, 4, 3593);
     			attr_dev(li1, "class", "listTitle svelte-su5d6v");
-    			add_location(li1, file, 155, 5, 3828);
+    			add_location(li1, file, 163, 5, 3950);
     			attr_dev(ul1, "class", "completed svelte-su5d6v");
-    			add_location(ul1, file, 154, 4, 3800);
+    			add_location(ul1, file, 162, 4, 3922);
     			attr_dev(div, "class", "flex svelte-su5d6v");
-    			add_location(div, file, 145, 2, 3432);
+    			add_location(div, file, 153, 2, 3554);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -928,11 +1619,11 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if ((!current || dirty & /*tasks*/ 128) && t1_value !== (t1_value = /*tasks*/ ctx[7].length + "")) set_data_dev(t1, t1_value);
-    			if (!current || dirty & /*total*/ 64) set_data_dev(t3, /*total*/ ctx[6]);
+    			if ((!current || dirty & /*tasks*/ 256) && t1_value !== (t1_value = /*tasks*/ ctx[8].length + "")) set_data_dev(t1, t1_value);
+    			if (!current || dirty & /*total*/ 128) set_data_dev(t3, /*total*/ ctx[7]);
 
-    			if (dirty & /*deleteTodo, tasks, done*/ 10368) {
-    				each_value_1 = /*tasks*/ ctx[7];
+    			if (dirty & /*deleteTodo, tasks, done*/ 20736) {
+    				each_value_1 = /*tasks*/ ctx[8];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -959,11 +1650,11 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if ((!current || dirty & /*completedTasks*/ 256) && t8_value !== (t8_value = /*completedTasks*/ ctx[8].length + "")) set_data_dev(t8, t8_value);
-    			if (!current || dirty & /*total*/ 64) set_data_dev(t10, /*total*/ ctx[6]);
+    			if ((!current || dirty & /*completedTasks*/ 512) && t8_value !== (t8_value = /*completedTasks*/ ctx[9].length + "")) set_data_dev(t8, t8_value);
+    			if (!current || dirty & /*total*/ 128) set_data_dev(t10, /*total*/ ctx[7]);
 
-    			if (dirty & /*uncheck, completedTasks*/ 1280) {
-    				each_value = /*completedTasks*/ ctx[8];
+    			if (dirty & /*uncheck, completedTasks*/ 2560) {
+    				each_value = /*completedTasks*/ ctx[9];
     				validate_each_argument(each_value);
     				let i;
 
@@ -1037,18 +1728,18 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(145:1) {#if isTasksVisible}",
+    		source: "(153:1) {#if isTasksVisible}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (149:5) {#each tasks as task}
+    // (157:5) {#each tasks as task}
     function create_each_block_1(ctx) {
     	let div;
     	let li;
-    	let t0_value = /*task*/ ctx[25] + "";
+    	let t0_value = /*task*/ ctx[26] + "";
     	let t0;
     	let img;
     	let img_src_value;
@@ -1066,12 +1757,12 @@ var app = (function () {
     			img = element("img");
     			t1 = space();
     			attr_dev(li, "class", "svelte-su5d6v");
-    			add_location(li, file, 150, 7, 3644);
+    			add_location(li, file, 158, 7, 3766);
     			attr_dev(img, "class", "deleteTask svelte-su5d6v");
     			if (img.src !== (img_src_value = "deleteIcon.svg")) attr_dev(img, "src", img_src_value);
-    			add_location(img, file, 150, 44, 3681);
+    			add_location(img, file, 158, 44, 3803);
     			attr_dev(div, "class", "taskWrapper svelte-su5d6v");
-    			add_location(div, file, 149, 6, 3594);
+    			add_location(div, file, 157, 6, 3716);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1087,7 +1778,7 @@ var app = (function () {
     						li,
     						"click",
     						function () {
-    							if (is_function(/*done*/ ctx[13](/*task*/ ctx[25]))) /*done*/ ctx[13](/*task*/ ctx[25]).apply(this, arguments);
+    							if (is_function(/*done*/ ctx[14](/*task*/ ctx[26]))) /*done*/ ctx[14](/*task*/ ctx[26]).apply(this, arguments);
     						},
     						false,
     						false,
@@ -1097,7 +1788,7 @@ var app = (function () {
     						img,
     						"click",
     						function () {
-    							if (is_function(/*deleteTodo*/ ctx[11](/*task*/ ctx[25], true))) /*deleteTodo*/ ctx[11](/*task*/ ctx[25], true).apply(this, arguments);
+    							if (is_function(/*deleteTodo*/ ctx[12](/*task*/ ctx[26], true))) /*deleteTodo*/ ctx[12](/*task*/ ctx[26], true).apply(this, arguments);
     						},
     						false,
     						false,
@@ -1110,7 +1801,7 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if ((!current || dirty & /*tasks*/ 128) && t0_value !== (t0_value = /*task*/ ctx[25] + "")) set_data_dev(t0, t0_value);
+    			if ((!current || dirty & /*tasks*/ 256) && t0_value !== (t0_value = /*task*/ ctx[26] + "")) set_data_dev(t0, t0_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1139,17 +1830,17 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(149:5) {#each tasks as task}",
+    		source: "(157:5) {#each tasks as task}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (157:5) {#each completedTasks as completedTask}
+    // (165:5) {#each completedTasks as completedTask}
     function create_each_block(ctx) {
     	let li;
-    	let t_value = /*completedTask*/ ctx[22] + "";
+    	let t_value = /*completedTask*/ ctx[23] + "";
     	let t;
     	let li_transition;
     	let current;
@@ -1161,7 +1852,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "svelte-su5d6v");
-    			add_location(li, file, 157, 6, 3950);
+    			add_location(li, file, 165, 6, 4072);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -1173,7 +1864,7 @@ var app = (function () {
     					li,
     					"click",
     					function () {
-    						if (is_function(/*uncheck*/ ctx[10](/*completedTask*/ ctx[22]))) /*uncheck*/ ctx[10](/*completedTask*/ ctx[22]).apply(this, arguments);
+    						if (is_function(/*uncheck*/ ctx[11](/*completedTask*/ ctx[23]))) /*uncheck*/ ctx[11](/*completedTask*/ ctx[23]).apply(this, arguments);
     					},
     					false,
     					false,
@@ -1185,7 +1876,7 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if ((!current || dirty & /*completedTasks*/ 256) && t_value !== (t_value = /*completedTask*/ ctx[22] + "")) set_data_dev(t, t_value);
+    			if ((!current || dirty & /*completedTasks*/ 512) && t_value !== (t_value = /*completedTask*/ ctx[23] + "")) set_data_dev(t, t_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1214,7 +1905,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(157:5) {#each completedTasks as completedTask}",
+    		source: "(165:5) {#each completedTasks as completedTask}",
     		ctx
     	});
 
@@ -1243,16 +1934,21 @@ var app = (function () {
     	let li0;
     	let t11;
     	let li1;
+    	let t12_value = (/*hits*/ ctx[6] || "...") + "";
     	let t12;
     	let t13;
     	let t14;
     	let li2;
+    	let t15;
     	let t16;
+    	let t17;
     	let li3;
+    	let t19;
+    	let li4;
     	let current;
     	let mounted;
     	let dispose;
-    	document.title = title_value = /*title*/ ctx[9] || "on that note";
+    	document.title = title_value = /*title*/ ctx[10] || "on that note";
     	let if_block0 = /*taskExists*/ ctx[2] && create_if_block_3(ctx);
     	let if_block1 = /*maxWordLimitReached*/ ctx[4] && create_if_block_2(ctx);
     	let if_block2 = /*completedTaskExists*/ ctx[3] && create_if_block_1(ctx);
@@ -1284,35 +1980,41 @@ var app = (function () {
     			li0.textContent = "Delete history / Make a new list";
     			t11 = space();
     			li1 = element("li");
-    			t12 = text("Code on Github • ");
-    			t13 = text(/*id*/ ctx[5]);
+    			t12 = text(t12_value);
+    			t13 = text(" happy souls");
     			t14 = space();
     			li2 = element("li");
-    			li2.textContent = "Hosted on now";
-    			t16 = space();
+    			t15 = text("Code on Github • ");
+    			t16 = text(/*id*/ ctx[5]);
+    			t17 = space();
     			li3 = element("li");
-    			li3.textContent = "Made with Svelte by rohanharikr";
+    			li3.textContent = "Hosted on now";
+    			t19 = space();
+    			li4 = element("li");
+    			li4.textContent = "Made with Svelte by rohanharikr";
     			attr_dev(input0, "class", "title svelte-su5d6v");
-    			add_location(input0, file, 136, 1, 2880);
+    			add_location(input0, file, 144, 1, 3002);
     			attr_dev(div0, "class", "limit svelte-su5d6v");
-    			add_location(div0, file, 138, 2, 2954);
+    			add_location(div0, file, 146, 2, 3076);
     			attr_dev(input1, "placeholder", "add a new task");
     			attr_dev(input1, "maxlength", "35");
     			attr_dev(input1, "class", "svelte-su5d6v");
-    			add_location(input1, file, 139, 2, 3001);
-    			add_location(div1, file, 137, 1, 2946);
+    			add_location(input1, file, 147, 2, 3123);
+    			add_location(div1, file, 145, 1, 3068);
     			attr_dev(main, "class", "svelte-su5d6v");
-    			add_location(main, file, 135, 0, 2872);
+    			add_location(main, file, 143, 0, 2994);
     			attr_dev(li0, "class", "svelte-su5d6v");
-    			add_location(li0, file, 164, 1, 4083);
+    			add_location(li0, file, 173, 1, 4222);
     			attr_dev(li1, "class", "secondary svelte-su5d6v");
-    			add_location(li1, file, 165, 1, 4147);
+    			add_location(li1, file, 174, 1, 4286);
     			attr_dev(li2, "class", "secondary svelte-su5d6v");
-    			add_location(li2, file, 166, 1, 4282);
+    			add_location(li2, file, 175, 1, 4342);
     			attr_dev(li3, "class", "secondary svelte-su5d6v");
-    			add_location(li3, file, 167, 1, 4324);
+    			add_location(li3, file, 176, 1, 4477);
+    			attr_dev(li4, "class", "secondary svelte-su5d6v");
+    			add_location(li4, file, 177, 1, 4519);
     			attr_dev(footer, "class", "svelte-su5d6v");
-    			add_location(footer, file, 163, 0, 4073);
+    			add_location(footer, file, 171, 0, 4195);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1321,7 +2023,7 @@ var app = (function () {
     			insert_dev(target, t0, anchor);
     			insert_dev(target, main, anchor);
     			append_dev(main, input0);
-    			set_input_value(input0, /*title*/ ctx[9]);
+    			set_input_value(input0, /*title*/ ctx[10]);
     			append_dev(main, t1);
     			append_dev(main, div1);
     			append_dev(div1, div0);
@@ -1347,32 +2049,36 @@ var app = (function () {
     			append_dev(li1, t13);
     			append_dev(footer, t14);
     			append_dev(footer, li2);
-    			append_dev(footer, t16);
+    			append_dev(li2, t15);
+    			append_dev(li2, t16);
+    			append_dev(footer, t17);
     			append_dev(footer, li3);
+    			append_dev(footer, t19);
+    			append_dev(footer, li4);
     			current = true;
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(window_1, "click", /*makeNote*/ ctx[15], false, false, false),
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[17]),
-    					listen_dev(input0, "keyup", /*storeLocally*/ ctx[12], false, false, false),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[18]),
-    					listen_dev(input1, "keydown", /*handleKeydown*/ ctx[14], false, false, false),
-    					listen_dev(li0, "click", /*startOver*/ ctx[16], false, false, false),
-    					listen_dev(li1, "click", /*click_handler*/ ctx[19], false, false, false),
-    					listen_dev(li3, "click", /*click_handler_1*/ ctx[20], false, false, false)
+    					listen_dev(window_1, "click", /*makeNote*/ ctx[16], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[18]),
+    					listen_dev(input0, "keyup", /*storeLocally*/ ctx[13], false, false, false),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[19]),
+    					listen_dev(input1, "keydown", /*handleKeydown*/ ctx[15], false, false, false),
+    					listen_dev(li0, "click", /*startOver*/ ctx[17], false, false, false),
+    					listen_dev(li2, "click", /*click_handler*/ ctx[20], false, false, false),
+    					listen_dev(li4, "click", /*click_handler_1*/ ctx[21], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if ((!current || dirty & /*title*/ 512) && title_value !== (title_value = /*title*/ ctx[9] || "on that note")) {
+    			if ((!current || dirty & /*title*/ 1024) && title_value !== (title_value = /*title*/ ctx[10] || "on that note")) {
     				document.title = title_value;
     			}
 
-    			if (dirty & /*title*/ 512 && input0.value !== /*title*/ ctx[9]) {
-    				set_input_value(input0, /*title*/ ctx[9]);
+    			if (dirty & /*title*/ 1024 && input0.value !== /*title*/ ctx[10]) {
+    				set_input_value(input0, /*title*/ ctx[10]);
     			}
 
     			if ((!current || dirty & /*newNote*/ 1) && t2_value !== (t2_value = /*newNote*/ ctx[0].length + "")) set_data_dev(t2, t2_value);
@@ -1467,7 +2173,8 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (!current || dirty & /*id*/ 32) set_data_dev(t13, /*id*/ ctx[5]);
+    			if ((!current || dirty & /*hits*/ 64) && t12_value !== (t12_value = (/*hits*/ ctx[6] || "...") + "")) set_data_dev(t12, t12_value);
+    			if (!current || dirty & /*id*/ 32) set_data_dev(t16, /*id*/ ctx[5]);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1516,15 +2223,16 @@ var app = (function () {
     	let completedTaskExists = false;
     	let maxWordLimitReached = false;
     	let id;
+    	let hits;
 
     	onMount(async () => {
     		if (window.localStorage.length !== 0) {
-    			$$invalidate(9, title = localStorage.getItem("title"));
+    			$$invalidate(10, title = localStorage.getItem("title"));
     			let localTasks = localStorage.getItem("inProgress");
-    			$$invalidate(7, tasks = localTasks.split(","));
+    			$$invalidate(8, tasks = localTasks.split(","));
     			let localCompletedTasks = localStorage.getItem("completed");
-    			$$invalidate(8, completedTasks = localCompletedTasks.split(","));
-    			$$invalidate(6, total = localStorage.getItem("count"));
+    			$$invalidate(9, completedTasks = localCompletedTasks.split(","));
+    			$$invalidate(7, total = localStorage.getItem("count"));
     			$$invalidate(1, isTasksVisible = true);
     		}
 
@@ -1537,11 +2245,15 @@ var app = (function () {
     		});
     	});
 
+    	countapiJs.visits("global").then(result => {
+    		$$invalidate(6, hits = result.value);
+    	});
+
     	function addTodo() {
     		if (!tasks.includes(newNote) && !completedTasks.includes(newNote)) {
-    			$$invalidate(7, tasks = [...tasks, newNote]);
+    			$$invalidate(8, tasks = [...tasks, newNote]);
     			$$invalidate(0, newNote = "");
-    			$$invalidate(6, total++, total);
+    			$$invalidate(7, total++, total);
     			storeLocally();
     		} else if (completedTasks.includes(newNote)) {
     			$$invalidate(3, completedTaskExists = true);
@@ -1553,9 +2265,9 @@ var app = (function () {
     	}
 
     	function uncheck(i) {
-    		$$invalidate(7, tasks = [...tasks, i]);
+    		$$invalidate(8, tasks = [...tasks, i]);
 
-    		$$invalidate(8, completedTasks = completedTasks.filter(function (value) {
+    		$$invalidate(9, completedTasks = completedTasks.filter(function (value) {
     			return value !== i;
     		}));
 
@@ -1563,7 +2275,7 @@ var app = (function () {
     	}
 
     	function deleteTodo(i, del) {
-    		$$invalidate(7, tasks = tasks.filter(function (value) {
+    		$$invalidate(8, tasks = tasks.filter(function (value) {
     			return value !== i;
     		}));
 
@@ -1574,7 +2286,7 @@ var app = (function () {
     		}
 
     		if (del == true) {
-    			$$invalidate(6, total--, total);
+    			$$invalidate(7, total--, total);
     		}
     	}
 
@@ -1587,7 +2299,7 @@ var app = (function () {
     	}
 
     	function done(i) {
-    		$$invalidate(8, completedTasks = [...completedTasks, i]);
+    		$$invalidate(9, completedTasks = [...completedTasks, i]);
     		deleteTodo(i);
     		storeLocally();
     	}
@@ -1615,16 +2327,16 @@ var app = (function () {
     		if (newNote) {
     			addTodo();
     			$$invalidate(1, isTasksVisible = true);
-    			$$invalidate(6, total++, total);
+    			$$invalidate(7, total++, total);
     		}
     	}
 
     	function startOver() {
-    		 $$invalidate(6, total = 0);
-    		 $$invalidate(7, tasks = []);
-    		 $$invalidate(8, completedTasks = []);
+    		 $$invalidate(7, total = 0);
+    		 $$invalidate(8, tasks = []);
+    		 $$invalidate(9, completedTasks = []);
     		$$invalidate(1, isTasksVisible = false);
-    		$$invalidate(9, title = "on that note");
+    		$$invalidate(10, title = "on that note");
     		localStorage.clear();
     	}
 
@@ -1639,7 +2351,7 @@ var app = (function () {
 
     	function input0_input_handler() {
     		title = this.value;
-    		$$invalidate(9, title);
+    		$$invalidate(10, title);
     	}
 
     	function input1_input_handler() {
@@ -1654,12 +2366,14 @@ var app = (function () {
     		slide,
     		fade,
     		onMount,
+    		countapi: countapiJs,
     		newNote,
     		isTasksVisible,
     		taskExists,
     		completedTaskExists,
     		maxWordLimitReached,
     		id,
+    		hits,
     		addTodo,
     		uncheck,
     		deleteTodo,
@@ -1681,10 +2395,11 @@ var app = (function () {
     		if ("completedTaskExists" in $$props) $$invalidate(3, completedTaskExists = $$props.completedTaskExists);
     		if ("maxWordLimitReached" in $$props) $$invalidate(4, maxWordLimitReached = $$props.maxWordLimitReached);
     		if ("id" in $$props) $$invalidate(5, id = $$props.id);
-    		if ("total" in $$props) $$invalidate(6, total = $$props.total);
-    		if ("tasks" in $$props) $$invalidate(7, tasks = $$props.tasks);
-    		if ("completedTasks" in $$props) $$invalidate(8, completedTasks = $$props.completedTasks);
-    		if ("title" in $$props) $$invalidate(9, title = $$props.title);
+    		if ("hits" in $$props) $$invalidate(6, hits = $$props.hits);
+    		if ("total" in $$props) $$invalidate(7, total = $$props.total);
+    		if ("tasks" in $$props) $$invalidate(8, tasks = $$props.tasks);
+    		if ("completedTasks" in $$props) $$invalidate(9, completedTasks = $$props.completedTasks);
+    		if ("title" in $$props) $$invalidate(10, title = $$props.title);
     	};
 
     	let total;
@@ -1696,10 +2411,10 @@ var app = (function () {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	 $$invalidate(6, total = 0);
-    	 $$invalidate(7, tasks = []);
-    	 $$invalidate(8, completedTasks = []);
-    	 $$invalidate(9, title = "on that note");
+    	 $$invalidate(7, total = 0);
+    	 $$invalidate(8, tasks = []);
+    	 $$invalidate(9, completedTasks = []);
+    	 $$invalidate(10, title = "on that note");
 
     	return [
     		newNote,
@@ -1708,6 +2423,7 @@ var app = (function () {
     		completedTaskExists,
     		maxWordLimitReached,
     		id,
+    		hits,
     		total,
     		tasks,
     		completedTasks,
