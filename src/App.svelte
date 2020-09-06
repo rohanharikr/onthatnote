@@ -10,7 +10,7 @@
 	let completedTaskExists = false
 	let maxWordLimitReached = false
 
-	let id = "..."
+	let id
 
 	let hits
 
@@ -180,7 +180,7 @@
 	<!-- {hits} -->
 	<li on:click={startOver}>Delete history / Make a new list</li>
 	<li class="secondary">{hits || "..."} happy souls</li>
-	<li class="secondary" on:click={()=>location.href="https://github.com/rohanharikr/onthatnote/tree/svelte"}>Code on Github • {id}</li>
+	<li class="secondary" on:click={()=>location.href="https://github.com/rohanharikr/onthatnote"}>Code on Github • {id}</li>
 	<li class="secondary">Hosted on now</li>
 	<li class="secondary" on:click={()=>location.href="https://www.twitter.com/rohanharikr"}>Made with Svelte by rohanharikr</li>
 </footer>
