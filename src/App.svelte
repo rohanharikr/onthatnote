@@ -26,13 +26,13 @@
 			if(localStorage.getItem("inProgress")){
 				let localTasks = localStorage.getItem("inProgress")
 				tasks = localTasks.split(',')
+				isTasksVisible = true
 			}
 			if(localStorage.getItem("completed")){
 				let localCompletedTasks = localStorage.getItem("completed")
 				completedTasks = localCompletedTasks.split(',')
 			}
 			total = localStorage.getItem("count")
-			isTasksVisible = true
 		}
 
 		if(localStorage.getItem("input")){
@@ -107,7 +107,7 @@
 	function handleKeydown(event) {
 		let key = event.key;
 		let keyCode = event.keyCode;
-		if (keyCode === 13 &&  newNote){
+		if (keyCode === 13 && newNote){
 			addTodo();
 			isTasksVisible = true
 		}
@@ -123,7 +123,7 @@
 		}
 	}
 
-	function makeNote(event){
+	function makeNote(){
 		if(newNote){
 			addTodo()
 			isTasksVisible = true
@@ -143,7 +143,8 @@
 	<title>{title || "on that note"}</title>
 </svelte:head>
 
-<svelte:window on:click={makeNote} on:keyup={storeLocally}></svelte:window>
+<!-- <svelte:window on:click={makeNote} on:keyup={storeLocally}></svelte:window> -->
+<svelte:window on:keyup={storeLocally}></svelte:window>
 
 <main>
 	<div>
