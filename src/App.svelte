@@ -14,19 +14,23 @@
 
 	let hits
 
-	$: total = tasks.length + completedTasks.length
 	$: tasks = []
 	$: completedTasks = []
+	$: total = tasks.length + completedTasks.length
 
 	$: title = "on that note"
 
 	onMount(async () => {
-		if (window.localStorage.length !== 0){
+		if (window.localStorage.length > 0){
 			title = localStorage.getItem("title")
-			let localTasks = localStorage.getItem("inProgress")
-			tasks = localTasks.split(',')
-			let localCompletedTasks = localStorage.getItem("completed")
-			completedTasks = localCompletedTasks.split(',')
+			if(localStorage.getItem("inProgress")){
+				let localTasks = localStorage.getItem("inProgress")
+				tasks = localTasks.split(',')
+			}
+			if(localStorage.getItem("completed")){
+				let localCompletedTasks = localStorage.getItem("completed")
+				completedTasks = localCompletedTasks.split(',')
+			}
 			total = localStorage.getItem("count")
 			isTasksVisible = true
 		}
@@ -47,11 +51,11 @@
 	});
 
 	function addTodo(){
-		if (!tasks.includes(newNote) && !completedTasks.includes(newNote)){
+		if (!tasks.includes(newNote) && !completedTasks.includes(newNote) && newNote.length>0){
 			tasks = [...tasks, newNote]
 			newNote = ""
 			storeLocally()
-		} else if(completedTasks.includes(newNote)){
+		}else if(completedTasks.includes(newNote)){
 			completedTaskExists = true
 			setTimeout(()=>completedTaskExists = false, 2000)
 		} else if(tasks.includes(newNote)){
@@ -86,6 +90,7 @@
 	}
 
 	function storeLocally(){
+		total = tasks.length + completedTasks.length
 		localStorage.setItem("title", title); 
 		localStorage.setItem("inProgress", tasks);
 		localStorage.setItem("completed", completedTasks);
@@ -112,7 +117,10 @@
 		} else{
 			maxWordLimitReached = false
 		}
-		storeLocally()
+
+		if(newnewNote.length){
+			storeLocally();
+		}
 	}
 
 	function makeNote(event){
@@ -123,10 +131,8 @@
 	}
 
 	function startOver(){
-		let newNote = ""
-		$: total = 0
-		$: tasks = []
-		$: completedTasks = []
+		tasks = [];
+		completedTasks = [];
 		isTasksVisible = false;
 		title = "on that note"
 		localStorage.clear();
@@ -137,11 +143,11 @@
 	<title>{title || "on that note"}</title>
 </svelte:head>
 
-<svelte:window on:click|once={makeNote}></svelte:window>
+<svelte:window on:click={makeNote} on:keyup={storeLocally}></svelte:window>
 
 <main>
 	<div>
-		<input class="title" bind:value={title} on:keyup={storeLocally} autofocus>
+		<input class="title" bind:value={title} autofocus>
 	</div>
 	<div>
 		<div class="limit">{newNote.length}/35</div>
@@ -204,10 +210,10 @@
 
 	footer li{
 		margin-right: 10px;
+		cursor: pointer;
 	}
 
 	footer li:hover{
-		cursor: pointer;
 		text-decoration: none;
 	}
 

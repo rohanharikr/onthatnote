@@ -1351,7 +1351,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (150:1) {#if taskExists }
+    // (156:1) {#if taskExists }
     function create_if_block_3(ctx) {
     	let div;
     	let div_transition;
@@ -1361,8 +1361,8 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Task already exists";
-    			attr_dev(div, "class", "errorMessage svelte-1u49s6b");
-    			add_location(div, file, 149, 18, 3286);
+    			attr_dev(div, "class", "errorMessage svelte-pwx3b7");
+    			add_location(div, file, 155, 18, 3451);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1393,14 +1393,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(150:1) {#if taskExists }",
+    		source: "(156:1) {#if taskExists }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (151:1) {#if maxWordLimitReached }
+    // (157:1) {#if maxWordLimitReached }
     function create_if_block_2(ctx) {
     	let div;
     	let div_transition;
@@ -1410,8 +1410,8 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Reached maximum length";
-    			attr_dev(div, "class", "errorMessage svelte-1u49s6b");
-    			add_location(div, file, 150, 27, 3387);
+    			attr_dev(div, "class", "errorMessage svelte-pwx3b7");
+    			add_location(div, file, 156, 27, 3552);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1442,14 +1442,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(151:1) {#if maxWordLimitReached }",
+    		source: "(157:1) {#if maxWordLimitReached }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (152:1) {#if completedTaskExists}
+    // (158:1) {#if completedTaskExists}
     function create_if_block_1(ctx) {
     	let div;
     	let div_transition;
@@ -1459,8 +1459,8 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Task already completed";
-    			attr_dev(div, "class", "errorMessage svelte-1u49s6b");
-    			add_location(div, file, 151, 26, 3490);
+    			attr_dev(div, "class", "errorMessage svelte-pwx3b7");
+    			add_location(div, file, 157, 26, 3655);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1491,20 +1491,20 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(152:1) {#if completedTaskExists}",
+    		source: "(158:1) {#if completedTaskExists}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (153:1) {#if isTasksVisible}
+    // (159:1) {#if isTasksVisible}
     function create_if_block(ctx) {
     	let div;
     	let ul0;
     	let li0;
     	let t0;
-    	let t1_value = /*tasks*/ ctx[8].length + "";
+    	let t1_value = /*tasks*/ ctx[7].length + "";
     	let t1;
     	let t2;
     	let t3;
@@ -1514,7 +1514,7 @@ var app = (function () {
     	let ul1;
     	let li1;
     	let t7;
-    	let t8_value = /*completedTasks*/ ctx[9].length + "";
+    	let t8_value = /*completedTasks*/ ctx[8].length + "";
     	let t8;
     	let t9;
     	let t10;
@@ -1522,7 +1522,7 @@ var app = (function () {
     	let t12;
     	let div_transition;
     	let current;
-    	let each_value_1 = /*tasks*/ ctx[8];
+    	let each_value_1 = /*tasks*/ ctx[7];
     	validate_each_argument(each_value_1);
     	let each_blocks_1 = [];
 
@@ -1534,7 +1534,7 @@ var app = (function () {
     		each_blocks_1[i] = null;
     	});
 
-    	let each_value = /*completedTasks*/ ctx[9];
+    	let each_value = /*completedTasks*/ ctx[8];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -1554,7 +1554,7 @@ var app = (function () {
     			t0 = text("In Progress (");
     			t1 = text(t1_value);
     			t2 = text("/");
-    			t3 = text(/*total*/ ctx[7]);
+    			t3 = text(/*total*/ ctx[9]);
     			t4 = text(")");
     			t5 = space();
 
@@ -1568,7 +1568,7 @@ var app = (function () {
     			t7 = text("Completed (");
     			t8 = text(t8_value);
     			t9 = text("/");
-    			t10 = text(/*total*/ ctx[7]);
+    			t10 = text(/*total*/ ctx[9]);
     			t11 = text(")");
     			t12 = space();
 
@@ -1576,16 +1576,16 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(li0, "class", "listTitle svelte-1u49s6b");
-    			add_location(li0, file, 155, 5, 3656);
-    			attr_dev(ul0, "class", "pending svelte-1u49s6b");
-    			add_location(ul0, file, 154, 4, 3630);
-    			attr_dev(li1, "class", "listTitle svelte-1u49s6b");
-    			add_location(li1, file, 163, 5, 3987);
-    			attr_dev(ul1, "class", "completed svelte-1u49s6b");
-    			add_location(ul1, file, 162, 4, 3959);
-    			attr_dev(div, "class", "flex svelte-1u49s6b");
-    			add_location(div, file, 153, 2, 3591);
+    			attr_dev(li0, "class", "listTitle svelte-pwx3b7");
+    			add_location(li0, file, 161, 5, 3821);
+    			attr_dev(ul0, "class", "pending svelte-pwx3b7");
+    			add_location(ul0, file, 160, 4, 3795);
+    			attr_dev(li1, "class", "listTitle svelte-pwx3b7");
+    			add_location(li1, file, 169, 5, 4152);
+    			attr_dev(ul1, "class", "completed svelte-pwx3b7");
+    			add_location(ul1, file, 168, 4, 4124);
+    			attr_dev(div, "class", "flex svelte-pwx3b7");
+    			add_location(div, file, 159, 2, 3756);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1619,11 +1619,11 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if ((!current || dirty & /*tasks*/ 256) && t1_value !== (t1_value = /*tasks*/ ctx[8].length + "")) set_data_dev(t1, t1_value);
-    			if (!current || dirty & /*total*/ 128) set_data_dev(t3, /*total*/ ctx[7]);
+    			if ((!current || dirty & /*tasks*/ 128) && t1_value !== (t1_value = /*tasks*/ ctx[7].length + "")) set_data_dev(t1, t1_value);
+    			if (!current || dirty & /*total*/ 512) set_data_dev(t3, /*total*/ ctx[9]);
 
-    			if (dirty & /*deleteTodo, tasks, done*/ 20736) {
-    				each_value_1 = /*tasks*/ ctx[8];
+    			if (dirty & /*deleteTodo, tasks, done*/ 20608) {
+    				each_value_1 = /*tasks*/ ctx[7];
     				validate_each_argument(each_value_1);
     				let i;
 
@@ -1650,11 +1650,11 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if ((!current || dirty & /*completedTasks*/ 512) && t8_value !== (t8_value = /*completedTasks*/ ctx[9].length + "")) set_data_dev(t8, t8_value);
-    			if (!current || dirty & /*total*/ 128) set_data_dev(t10, /*total*/ ctx[7]);
+    			if ((!current || dirty & /*completedTasks*/ 256) && t8_value !== (t8_value = /*completedTasks*/ ctx[8].length + "")) set_data_dev(t8, t8_value);
+    			if (!current || dirty & /*total*/ 512) set_data_dev(t10, /*total*/ ctx[9]);
 
-    			if (dirty & /*uncheck, completedTasks*/ 2560) {
-    				each_value = /*completedTasks*/ ctx[9];
+    			if (dirty & /*uncheck, completedTasks*/ 2304) {
+    				each_value = /*completedTasks*/ ctx[8];
     				validate_each_argument(each_value);
     				let i;
 
@@ -1728,14 +1728,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(153:1) {#if isTasksVisible}",
+    		source: "(159:1) {#if isTasksVisible}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (157:5) {#each tasks as task}
+    // (163:5) {#each tasks as task}
     function create_each_block_1(ctx) {
     	let div;
     	let li;
@@ -1756,13 +1756,13 @@ var app = (function () {
     			t0 = text(t0_value);
     			img = element("img");
     			t1 = space();
-    			attr_dev(li, "class", "svelte-1u49s6b");
-    			add_location(li, file, 158, 7, 3803);
-    			attr_dev(img, "class", "deleteTask svelte-1u49s6b");
+    			attr_dev(li, "class", "svelte-pwx3b7");
+    			add_location(li, file, 164, 7, 3968);
+    			attr_dev(img, "class", "deleteTask svelte-pwx3b7");
     			if (img.src !== (img_src_value = "deleteIcon.svg")) attr_dev(img, "src", img_src_value);
-    			add_location(img, file, 158, 44, 3840);
-    			attr_dev(div, "class", "taskWrapper svelte-1u49s6b");
-    			add_location(div, file, 157, 6, 3753);
+    			add_location(img, file, 164, 44, 4005);
+    			attr_dev(div, "class", "taskWrapper svelte-pwx3b7");
+    			add_location(div, file, 163, 6, 3918);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1801,7 +1801,7 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if ((!current || dirty & /*tasks*/ 256) && t0_value !== (t0_value = /*task*/ ctx[26] + "")) set_data_dev(t0, t0_value);
+    			if ((!current || dirty & /*tasks*/ 128) && t0_value !== (t0_value = /*task*/ ctx[26] + "")) set_data_dev(t0, t0_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1830,14 +1830,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(157:5) {#each tasks as task}",
+    		source: "(163:5) {#each tasks as task}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (165:5) {#each completedTasks as completedTask}
+    // (171:5) {#each completedTasks as completedTask}
     function create_each_block(ctx) {
     	let li;
     	let t_value = /*completedTask*/ ctx[23] + "";
@@ -1851,8 +1851,8 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", "svelte-1u49s6b");
-    			add_location(li, file, 165, 6, 4109);
+    			attr_dev(li, "class", "svelte-pwx3b7");
+    			add_location(li, file, 171, 6, 4274);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -1876,7 +1876,7 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if ((!current || dirty & /*completedTasks*/ 512) && t_value !== (t_value = /*completedTask*/ ctx[23] + "")) set_data_dev(t, t_value);
+    			if ((!current || dirty & /*completedTasks*/ 256) && t_value !== (t_value = /*completedTask*/ ctx[23] + "")) set_data_dev(t, t_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1905,7 +1905,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(165:5) {#each completedTasks as completedTask}",
+    		source: "(171:5) {#each completedTasks as completedTask}",
     		ctx
     	});
 
@@ -1994,31 +1994,31 @@ var app = (function () {
     			t19 = space();
     			li4 = element("li");
     			li4.textContent = "Made with Svelte by rohanharikr";
-    			attr_dev(input0, "class", "title svelte-1u49s6b");
+    			attr_dev(input0, "class", "title svelte-pwx3b7");
     			input0.autofocus = true;
-    			add_location(input0, file, 143, 2, 3021);
-    			add_location(div0, file, 142, 1, 3013);
-    			attr_dev(div1, "class", "limit svelte-1u49s6b");
-    			add_location(div1, file, 146, 2, 3113);
+    			add_location(input0, file, 149, 2, 3210);
+    			add_location(div0, file, 148, 1, 3202);
+    			attr_dev(div1, "class", "limit svelte-pwx3b7");
+    			add_location(div1, file, 152, 2, 3278);
     			attr_dev(input1, "placeholder", "add a new task");
     			attr_dev(input1, "maxlength", "35");
-    			attr_dev(input1, "class", "svelte-1u49s6b");
-    			add_location(input1, file, 147, 2, 3160);
-    			add_location(div2, file, 145, 1, 3105);
-    			attr_dev(main, "class", "svelte-1u49s6b");
-    			add_location(main, file, 141, 0, 3005);
-    			attr_dev(li0, "class", "svelte-1u49s6b");
-    			add_location(li0, file, 173, 1, 4259);
-    			attr_dev(li1, "class", "secondary svelte-1u49s6b");
-    			add_location(li1, file, 174, 1, 4323);
-    			attr_dev(li2, "class", "secondary svelte-1u49s6b");
-    			add_location(li2, file, 175, 1, 4379);
-    			attr_dev(li3, "class", "secondary svelte-1u49s6b");
-    			add_location(li3, file, 176, 1, 4514);
-    			attr_dev(li4, "class", "secondary svelte-1u49s6b");
-    			add_location(li4, file, 177, 1, 4556);
-    			attr_dev(footer, "class", "svelte-1u49s6b");
-    			add_location(footer, file, 171, 0, 4232);
+    			attr_dev(input1, "class", "svelte-pwx3b7");
+    			add_location(input1, file, 153, 2, 3325);
+    			add_location(div2, file, 151, 1, 3270);
+    			attr_dev(main, "class", "svelte-pwx3b7");
+    			add_location(main, file, 147, 0, 3194);
+    			attr_dev(li0, "class", "svelte-pwx3b7");
+    			add_location(li0, file, 179, 1, 4424);
+    			attr_dev(li1, "class", "secondary svelte-pwx3b7");
+    			add_location(li1, file, 180, 1, 4488);
+    			attr_dev(li2, "class", "secondary svelte-pwx3b7");
+    			add_location(li2, file, 181, 1, 4544);
+    			attr_dev(li3, "class", "secondary svelte-pwx3b7");
+    			add_location(li3, file, 182, 1, 4679);
+    			attr_dev(li4, "class", "secondary svelte-pwx3b7");
+    			add_location(li4, file, 183, 1, 4721);
+    			attr_dev(footer, "class", "svelte-pwx3b7");
+    			add_location(footer, file, 177, 0, 4397);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2066,8 +2066,8 @@ var app = (function () {
     			if (!mounted) {
     				dispose = [
     					listen_dev(window_1, "click", /*makeNote*/ ctx[16], false, false, false),
+    					listen_dev(window_1, "keyup", /*storeLocally*/ ctx[13], false, false, false),
     					listen_dev(input0, "input", /*input0_input_handler*/ ctx[18]),
-    					listen_dev(input0, "keyup", /*storeLocally*/ ctx[13], false, false, false),
     					listen_dev(input1, "input", /*input1_input_handler*/ ctx[19]),
     					listen_dev(input1, "keydown", /*handleKeydown*/ ctx[15], false, false, false),
     					listen_dev(li0, "click", /*startOver*/ ctx[17], false, false, false),
@@ -2228,17 +2228,24 @@ var app = (function () {
     	let taskExists = false;
     	let completedTaskExists = false;
     	let maxWordLimitReached = false;
-    	let id;
+    	let id = "...";
     	let hits;
 
     	onMount(async () => {
-    		if (window.localStorage.length !== 0) {
+    		if (window.localStorage.length > 0) {
     			$$invalidate(10, title = localStorage.getItem("title"));
-    			let localTasks = localStorage.getItem("inProgress");
-    			$$invalidate(8, tasks = localTasks.split(","));
-    			let localCompletedTasks = localStorage.getItem("completed");
-    			$$invalidate(9, completedTasks = localCompletedTasks.split(","));
-    			$$invalidate(7, total = localStorage.getItem("count"));
+
+    			if (localStorage.getItem("inProgress")) {
+    				let localTasks = localStorage.getItem("inProgress");
+    				$$invalidate(7, tasks = localTasks.split(","));
+    			}
+
+    			if (localStorage.getItem("completed")) {
+    				let localCompletedTasks = localStorage.getItem("completed");
+    				$$invalidate(8, completedTasks = localCompletedTasks.split(","));
+    			}
+
+    			$$invalidate(9, total = localStorage.getItem("count"));
     			$$invalidate(1, isTasksVisible = true);
     		}
 
@@ -2256,8 +2263,8 @@ var app = (function () {
     	});
 
     	function addTodo() {
-    		if (!tasks.includes(newNote) && !completedTasks.includes(newNote)) {
-    			$$invalidate(8, tasks = [...tasks, newNote]);
+    		if (!tasks.includes(newNote) && !completedTasks.includes(newNote) && newNote.length > 0) {
+    			$$invalidate(7, tasks = [...tasks, newNote]);
     			$$invalidate(0, newNote = "");
     			storeLocally();
     		} else if (completedTasks.includes(newNote)) {
@@ -2270,9 +2277,9 @@ var app = (function () {
     	}
 
     	function uncheck(i) {
-    		$$invalidate(8, tasks = [...tasks, i]);
+    		$$invalidate(7, tasks = [...tasks, i]);
 
-    		$$invalidate(9, completedTasks = completedTasks.filter(function (value) {
+    		$$invalidate(8, completedTasks = completedTasks.filter(function (value) {
     			return value !== i;
     		}));
 
@@ -2280,7 +2287,7 @@ var app = (function () {
     	}
 
     	function deleteTodo(i, del) {
-    		$$invalidate(8, tasks = tasks.filter(function (value) {
+    		$$invalidate(7, tasks = tasks.filter(function (value) {
     			return value !== i;
     		}));
 
@@ -2292,6 +2299,7 @@ var app = (function () {
     	}
 
     	function storeLocally() {
+    		$$invalidate(9, total = tasks.length + completedTasks.length);
     		localStorage.setItem("title", title);
     		localStorage.setItem("inProgress", tasks);
     		localStorage.setItem("completed", completedTasks);
@@ -2300,7 +2308,7 @@ var app = (function () {
     	}
 
     	function done(i) {
-    		$$invalidate(9, completedTasks = [...completedTasks, i]);
+    		$$invalidate(8, completedTasks = [...completedTasks, i]);
     		deleteTodo(i);
     		storeLocally();
     	}
@@ -2321,7 +2329,9 @@ var app = (function () {
     			$$invalidate(4, maxWordLimitReached = false);
     		}
 
-    		storeLocally();
+    		if (newnewNote.length) {
+    			storeLocally();
+    		}
     	}
 
     	function makeNote(event) {
@@ -2332,9 +2342,8 @@ var app = (function () {
     	}
 
     	function startOver() {
-    		 $$invalidate(7, total = 0);
-    		 $$invalidate(8, tasks = []);
-    		 $$invalidate(9, completedTasks = []);
+    		$$invalidate(7, tasks = []);
+    		$$invalidate(8, completedTasks = []);
     		$$invalidate(1, isTasksVisible = false);
     		$$invalidate(10, title = "on that note");
     		localStorage.clear();
@@ -2382,9 +2391,9 @@ var app = (function () {
     		handleKeydown,
     		makeNote,
     		startOver,
-    		total,
     		tasks,
     		completedTasks,
+    		total,
     		title
     	});
 
@@ -2396,15 +2405,15 @@ var app = (function () {
     		if ("maxWordLimitReached" in $$props) $$invalidate(4, maxWordLimitReached = $$props.maxWordLimitReached);
     		if ("id" in $$props) $$invalidate(5, id = $$props.id);
     		if ("hits" in $$props) $$invalidate(6, hits = $$props.hits);
-    		if ("total" in $$props) $$invalidate(7, total = $$props.total);
-    		if ("tasks" in $$props) $$invalidate(8, tasks = $$props.tasks);
-    		if ("completedTasks" in $$props) $$invalidate(9, completedTasks = $$props.completedTasks);
+    		if ("tasks" in $$props) $$invalidate(7, tasks = $$props.tasks);
+    		if ("completedTasks" in $$props) $$invalidate(8, completedTasks = $$props.completedTasks);
+    		if ("total" in $$props) $$invalidate(9, total = $$props.total);
     		if ("title" in $$props) $$invalidate(10, title = $$props.title);
     	};
 
-    	let total;
     	let tasks;
     	let completedTasks;
+    	let total;
     	let title;
 
     	if ($$props && "$$inject" in $$props) {
@@ -2412,13 +2421,13 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*tasks, completedTasks*/ 768) {
-    			 $$invalidate(7, total = tasks.length + completedTasks.length);
+    		if ($$self.$$.dirty & /*tasks, completedTasks*/ 384) {
+    			 $$invalidate(9, total = tasks.length + completedTasks.length);
     		}
     	};
 
-    	 $$invalidate(8, tasks = []);
-    	 $$invalidate(9, completedTasks = []);
+    	 $$invalidate(7, tasks = []);
+    	 $$invalidate(8, completedTasks = []);
     	 $$invalidate(10, title = "on that note");
 
     	return [
@@ -2429,9 +2438,9 @@ var app = (function () {
     		maxWordLimitReached,
     		id,
     		hits,
-    		total,
     		tasks,
     		completedTasks,
+    		total,
     		title,
     		uncheck,
     		deleteTodo,
