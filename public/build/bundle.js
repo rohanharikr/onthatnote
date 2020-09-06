@@ -1361,7 +1361,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Task already exists";
-    			attr_dev(div, "class", "errorMessage svelte-pwx3b7");
+    			attr_dev(div, "class", "errorMessage svelte-fgwhxr");
     			add_location(div, file, 156, 18, 3502);
     		},
     		m: function mount(target, anchor) {
@@ -1410,7 +1410,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Reached maximum length";
-    			attr_dev(div, "class", "errorMessage svelte-pwx3b7");
+    			attr_dev(div, "class", "errorMessage svelte-fgwhxr");
     			add_location(div, file, 157, 27, 3603);
     		},
     		m: function mount(target, anchor) {
@@ -1459,7 +1459,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			div.textContent = "Task already completed";
-    			attr_dev(div, "class", "errorMessage svelte-pwx3b7");
+    			attr_dev(div, "class", "errorMessage svelte-fgwhxr");
     			add_location(div, file, 158, 26, 3706);
     		},
     		m: function mount(target, anchor) {
@@ -1576,15 +1576,15 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(li0, "class", "listTitle svelte-pwx3b7");
+    			attr_dev(li0, "class", "listTitle svelte-fgwhxr");
     			add_location(li0, file, 162, 5, 3872);
-    			attr_dev(ul0, "class", "pending svelte-pwx3b7");
+    			attr_dev(ul0, "class", "pending svelte-fgwhxr");
     			add_location(ul0, file, 161, 4, 3846);
-    			attr_dev(li1, "class", "listTitle svelte-pwx3b7");
+    			attr_dev(li1, "class", "listTitle svelte-fgwhxr");
     			add_location(li1, file, 170, 5, 4203);
-    			attr_dev(ul1, "class", "completed svelte-pwx3b7");
+    			attr_dev(ul1, "class", "completed svelte-fgwhxr");
     			add_location(ul1, file, 169, 4, 4175);
-    			attr_dev(div, "class", "flex svelte-pwx3b7");
+    			attr_dev(div, "class", "flex svelte-fgwhxr");
     			add_location(div, file, 160, 2, 3807);
     		},
     		m: function mount(target, anchor) {
@@ -1756,12 +1756,12 @@ var app = (function () {
     			t0 = text(t0_value);
     			img = element("img");
     			t1 = space();
-    			attr_dev(li, "class", "svelte-pwx3b7");
+    			attr_dev(li, "class", "svelte-fgwhxr");
     			add_location(li, file, 165, 7, 4019);
-    			attr_dev(img, "class", "deleteTask svelte-pwx3b7");
+    			attr_dev(img, "class", "deleteTask svelte-fgwhxr");
     			if (img.src !== (img_src_value = "deleteIcon.svg")) attr_dev(img, "src", img_src_value);
     			add_location(img, file, 165, 44, 4056);
-    			attr_dev(div, "class", "taskWrapper svelte-pwx3b7");
+    			attr_dev(div, "class", "taskWrapper svelte-fgwhxr");
     			add_location(div, file, 164, 6, 3969);
     		},
     		m: function mount(target, anchor) {
@@ -1851,7 +1851,7 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", "svelte-pwx3b7");
+    			attr_dev(li, "class", "svelte-fgwhxr");
     			add_location(li, file, 172, 6, 4325);
     		},
     		m: function mount(target, anchor) {
@@ -1932,6 +1932,7 @@ var app = (function () {
     	let t8;
     	let t9;
     	let footer;
+    	let a;
     	let li0;
     	let t11;
     	let li1;
@@ -1978,6 +1979,7 @@ var app = (function () {
     			if (if_block3) if_block3.c();
     			t9 = space();
     			footer = element("footer");
+    			a = element("a");
     			li0 = element("li");
     			li0.textContent = "Delete history / Make a new list";
     			t11 = space();
@@ -1994,30 +1996,32 @@ var app = (function () {
     			t19 = space();
     			li4 = element("li");
     			li4.textContent = "Made with Svelte by rohanharikr";
-    			attr_dev(input0, "class", "title svelte-pwx3b7");
+    			attr_dev(input0, "class", "title svelte-fgwhxr");
     			input0.autofocus = true;
     			add_location(input0, file, 150, 2, 3261);
     			add_location(div0, file, 149, 1, 3253);
-    			attr_dev(div1, "class", "limit svelte-pwx3b7");
+    			attr_dev(div1, "class", "limit svelte-fgwhxr");
     			add_location(div1, file, 153, 2, 3329);
     			attr_dev(input1, "placeholder", "add a new task");
     			attr_dev(input1, "maxlength", "35");
-    			attr_dev(input1, "class", "svelte-pwx3b7");
+    			attr_dev(input1, "class", "svelte-fgwhxr");
     			add_location(input1, file, 154, 2, 3376);
     			add_location(div2, file, 152, 1, 3321);
-    			attr_dev(main, "class", "svelte-pwx3b7");
+    			attr_dev(main, "class", "svelte-fgwhxr");
     			add_location(main, file, 148, 0, 3245);
-    			attr_dev(li0, "class", "svelte-pwx3b7");
-    			add_location(li0, file, 180, 1, 4475);
-    			attr_dev(li1, "class", "secondary svelte-pwx3b7");
-    			add_location(li1, file, 181, 1, 4539);
-    			attr_dev(li2, "class", "secondary svelte-pwx3b7");
-    			add_location(li2, file, 182, 1, 4595);
-    			attr_dev(li3, "class", "secondary svelte-pwx3b7");
-    			add_location(li3, file, 183, 1, 4718);
-    			attr_dev(li4, "class", "secondary svelte-pwx3b7");
-    			add_location(li4, file, 184, 1, 4760);
-    			attr_dev(footer, "class", "svelte-pwx3b7");
+    			attr_dev(li0, "class", "svelte-fgwhxr");
+    			add_location(li0, file, 180, 25, 4499);
+    			attr_dev(a, "class", "svelte-fgwhxr");
+    			add_location(a, file, 180, 1, 4475);
+    			attr_dev(li1, "class", "secondary svelte-fgwhxr");
+    			add_location(li1, file, 181, 1, 4546);
+    			attr_dev(li2, "class", "secondary svelte-fgwhxr");
+    			add_location(li2, file, 182, 1, 4602);
+    			attr_dev(li3, "class", "secondary svelte-fgwhxr");
+    			add_location(li3, file, 183, 1, 4725);
+    			attr_dev(li4, "class", "secondary svelte-fgwhxr");
+    			add_location(li4, file, 184, 1, 4767);
+    			attr_dev(footer, "class", "svelte-fgwhxr");
     			add_location(footer, file, 178, 0, 4448);
     		},
     		l: function claim(nodes) {
@@ -2047,7 +2051,8 @@ var app = (function () {
     			if (if_block3) if_block3.m(main, null);
     			insert_dev(target, t9, anchor);
     			insert_dev(target, footer, anchor);
-    			append_dev(footer, li0);
+    			append_dev(footer, a);
+    			append_dev(a, li0);
     			append_dev(footer, t11);
     			append_dev(footer, li1);
     			append_dev(li1, t12);
@@ -2069,7 +2074,7 @@ var app = (function () {
     					listen_dev(input0, "input", /*input0_input_handler*/ ctx[17]),
     					listen_dev(input1, "input", /*input1_input_handler*/ ctx[18]),
     					listen_dev(input1, "keydown", /*handleKeydown*/ ctx[15], false, false, false),
-    					listen_dev(li0, "click", /*startOver*/ ctx[16], false, false, false),
+    					listen_dev(a, "click", /*startOver*/ ctx[16], false, false, false),
     					listen_dev(li2, "click", /*click_handler*/ ctx[19], false, false, false),
     					listen_dev(li4, "click", /*click_handler_1*/ ctx[20], false, false, false)
     				];
