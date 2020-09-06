@@ -1351,7 +1351,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (157:1) {#if taskExists }
+    // (160:1) {#if taskExists }
     function create_if_block_3(ctx) {
     	let div;
     	let div_transition;
@@ -1362,7 +1362,7 @@ var app = (function () {
     			div = element("div");
     			div.textContent = "Task already exists";
     			attr_dev(div, "class", "errorMessage svelte-fgwhxr");
-    			add_location(div, file, 156, 18, 3502);
+    			add_location(div, file, 159, 18, 3617);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1393,14 +1393,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(157:1) {#if taskExists }",
+    		source: "(160:1) {#if taskExists }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (158:1) {#if maxWordLimitReached }
+    // (161:1) {#if maxWordLimitReached }
     function create_if_block_2(ctx) {
     	let div;
     	let div_transition;
@@ -1411,7 +1411,7 @@ var app = (function () {
     			div = element("div");
     			div.textContent = "Reached maximum length";
     			attr_dev(div, "class", "errorMessage svelte-fgwhxr");
-    			add_location(div, file, 157, 27, 3603);
+    			add_location(div, file, 160, 27, 3718);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1442,14 +1442,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(158:1) {#if maxWordLimitReached }",
+    		source: "(161:1) {#if maxWordLimitReached }",
     		ctx
     	});
 
     	return block;
     }
 
-    // (159:1) {#if completedTaskExists}
+    // (162:1) {#if completedTaskExists}
     function create_if_block_1(ctx) {
     	let div;
     	let div_transition;
@@ -1460,7 +1460,7 @@ var app = (function () {
     			div = element("div");
     			div.textContent = "Task already completed";
     			attr_dev(div, "class", "errorMessage svelte-fgwhxr");
-    			add_location(div, file, 158, 26, 3706);
+    			add_location(div, file, 161, 26, 3821);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1491,14 +1491,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(159:1) {#if completedTaskExists}",
+    		source: "(162:1) {#if completedTaskExists}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:1) {#if isTasksVisible}
+    // (163:1) {#if isTasksVisible}
     function create_if_block(ctx) {
     	let div;
     	let ul0;
@@ -1577,15 +1577,15 @@ var app = (function () {
     			}
 
     			attr_dev(li0, "class", "listTitle svelte-fgwhxr");
-    			add_location(li0, file, 162, 5, 3872);
+    			add_location(li0, file, 165, 5, 3987);
     			attr_dev(ul0, "class", "pending svelte-fgwhxr");
-    			add_location(ul0, file, 161, 4, 3846);
+    			add_location(ul0, file, 164, 4, 3961);
     			attr_dev(li1, "class", "listTitle svelte-fgwhxr");
-    			add_location(li1, file, 170, 5, 4203);
+    			add_location(li1, file, 173, 5, 4318);
     			attr_dev(ul1, "class", "completed svelte-fgwhxr");
-    			add_location(ul1, file, 169, 4, 4175);
+    			add_location(ul1, file, 172, 4, 4290);
     			attr_dev(div, "class", "flex svelte-fgwhxr");
-    			add_location(div, file, 160, 2, 3807);
+    			add_location(div, file, 163, 2, 3922);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1728,14 +1728,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(160:1) {#if isTasksVisible}",
+    		source: "(163:1) {#if isTasksVisible}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (164:5) {#each tasks as task}
+    // (167:5) {#each tasks as task}
     function create_each_block_1(ctx) {
     	let div;
     	let li;
@@ -1757,12 +1757,12 @@ var app = (function () {
     			img = element("img");
     			t1 = space();
     			attr_dev(li, "class", "svelte-fgwhxr");
-    			add_location(li, file, 165, 7, 4019);
+    			add_location(li, file, 168, 7, 4134);
     			attr_dev(img, "class", "deleteTask svelte-fgwhxr");
     			if (img.src !== (img_src_value = "deleteIcon.svg")) attr_dev(img, "src", img_src_value);
-    			add_location(img, file, 165, 44, 4056);
+    			add_location(img, file, 168, 44, 4171);
     			attr_dev(div, "class", "taskWrapper svelte-fgwhxr");
-    			add_location(div, file, 164, 6, 3969);
+    			add_location(div, file, 167, 6, 4084);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1830,14 +1830,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(164:5) {#each tasks as task}",
+    		source: "(167:5) {#each tasks as task}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (172:5) {#each completedTasks as completedTask}
+    // (175:5) {#each completedTasks as completedTask}
     function create_each_block(ctx) {
     	let li;
     	let t_value = /*completedTask*/ ctx[23] + "";
@@ -1852,7 +1852,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "svelte-fgwhxr");
-    			add_location(li, file, 172, 6, 4325);
+    			add_location(li, file, 175, 6, 4440);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -1905,7 +1905,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(172:5) {#each completedTasks as completedTask}",
+    		source: "(175:5) {#each completedTasks as completedTask}",
     		ctx
     	});
 
@@ -1998,31 +1998,31 @@ var app = (function () {
     			li4.textContent = "Made with Svelte by rohanharikr";
     			attr_dev(input0, "class", "title svelte-fgwhxr");
     			input0.autofocus = true;
-    			add_location(input0, file, 150, 2, 3261);
-    			add_location(div0, file, 149, 1, 3253);
+    			add_location(input0, file, 153, 2, 3376);
+    			add_location(div0, file, 152, 1, 3368);
     			attr_dev(div1, "class", "limit svelte-fgwhxr");
-    			add_location(div1, file, 153, 2, 3329);
+    			add_location(div1, file, 156, 2, 3444);
     			attr_dev(input1, "placeholder", "add a new task");
     			attr_dev(input1, "maxlength", "35");
     			attr_dev(input1, "class", "svelte-fgwhxr");
-    			add_location(input1, file, 154, 2, 3376);
-    			add_location(div2, file, 152, 1, 3321);
+    			add_location(input1, file, 157, 2, 3491);
+    			add_location(div2, file, 155, 1, 3436);
     			attr_dev(main, "class", "svelte-fgwhxr");
-    			add_location(main, file, 148, 0, 3245);
+    			add_location(main, file, 151, 0, 3360);
     			attr_dev(li0, "class", "svelte-fgwhxr");
-    			add_location(li0, file, 180, 25, 4499);
+    			add_location(li0, file, 183, 25, 4614);
     			attr_dev(a, "class", "svelte-fgwhxr");
-    			add_location(a, file, 180, 1, 4475);
+    			add_location(a, file, 183, 1, 4590);
     			attr_dev(li1, "class", "secondary svelte-fgwhxr");
-    			add_location(li1, file, 181, 1, 4546);
+    			add_location(li1, file, 184, 1, 4661);
     			attr_dev(li2, "class", "secondary svelte-fgwhxr");
-    			add_location(li2, file, 182, 1, 4602);
+    			add_location(li2, file, 185, 1, 4717);
     			attr_dev(li3, "class", "secondary svelte-fgwhxr");
-    			add_location(li3, file, 183, 1, 4725);
+    			add_location(li3, file, 186, 1, 4840);
     			attr_dev(li4, "class", "secondary svelte-fgwhxr");
-    			add_location(li4, file, 184, 1, 4767);
+    			add_location(li4, file, 187, 1, 4882);
     			attr_dev(footer, "class", "svelte-fgwhxr");
-    			add_location(footer, file, 178, 0, 4448);
+    			add_location(footer, file, 181, 0, 4563);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2239,6 +2239,10 @@ var app = (function () {
     		if (window.localStorage.length > 0) {
     			$$invalidate(10, title = localStorage.getItem("title"));
 
+    			if (localStorage.getItem("inProgress").length || localStorage.getItem("completed").length) {
+    				$$invalidate(1, isTasksVisible = true);
+    			}
+
     			if (localStorage.getItem("inProgress")) {
     				let localTasks = localStorage.getItem("inProgress");
     				$$invalidate(7, tasks = localTasks.split(","));
@@ -2250,7 +2254,6 @@ var app = (function () {
     			}
 
     			$$invalidate(9, total = localStorage.getItem("count"));
-    			$$invalidate(1, isTasksVisible = true);
     		}
 
     		if (localStorage.getItem("input")) {
@@ -2350,6 +2353,7 @@ var app = (function () {
     		$$invalidate(8, completedTasks = []);
     		$$invalidate(1, isTasksVisible = false);
     		$$invalidate(10, title = "on that note");
+    		$$invalidate(0, newNote = "");
     		localStorage.clear();
     	}
 

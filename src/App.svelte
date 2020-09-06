@@ -23,6 +23,9 @@
 	onMount(async () => {
 		if (window.localStorage.length > 0){
 			title = localStorage.getItem("title")
+			if(localStorage.getItem("inProgress").length || localStorage.getItem("completed").length){
+				isTasksVisible = true
+			}
 			if(localStorage.getItem("inProgress")){
 				let localTasks = localStorage.getItem("inProgress")
 				tasks = localTasks.split(',')
@@ -32,7 +35,6 @@
 				completedTasks = localCompletedTasks.split(',')
 			}
 			total = localStorage.getItem("count")
-			isTasksVisible = true
 		}
 
 		if(localStorage.getItem("input")){
@@ -135,6 +137,7 @@
 		completedTasks = [];
 		isTasksVisible = false;
 		title = "on that note"
+		newNote = ""
 		localStorage.clear();
 	}
 </script>
