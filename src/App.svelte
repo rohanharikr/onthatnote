@@ -137,7 +137,7 @@
 	<title>{title || "on that note"}</title>
 </svelte:head>
 
-<svelte:window on:click={makeNote}></svelte:window>
+<svelte:window on:click|once={makeNote}></svelte:window>
 
 <main>
 	<div>
