@@ -26,13 +26,13 @@
 			if(localStorage.getItem("inProgress")){
 				let localTasks = localStorage.getItem("inProgress")
 				tasks = localTasks.split(',')
-				isTasksVisible = true
 			}
 			if(localStorage.getItem("completed")){
 				let localCompletedTasks = localStorage.getItem("completed")
 				completedTasks = localCompletedTasks.split(',')
 			}
 			total = localStorage.getItem("count")
+			isTasksVisible = true
 		}
 
 		if(localStorage.getItem("input")){
