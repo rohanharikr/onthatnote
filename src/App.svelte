@@ -14,7 +14,7 @@
 
 	let hits
 
-	$: total = 0
+	$: total = tasks.length + completedTasks.length
 	$: tasks = []
 	$: completedTasks = []
 
@@ -50,7 +50,6 @@
 		if (!tasks.includes(newNote) && !completedTasks.includes(newNote)){
 			tasks = [...tasks, newNote]
 			newNote = ""
-			total++;
 			storeLocally()
 		} else if(completedTasks.includes(newNote)){
 			completedTaskExists = true
@@ -82,7 +81,7 @@
 		}
 
 		if(del == true){
-			total--;
+			//
 		}
 	}
 
@@ -116,11 +115,10 @@
 		storeLocally()
 	}
 
-	function makeNote(){
+	function makeNote(event){
 		if(newNote){
 			addTodo()
 			isTasksVisible = true
-			total++
 		}
 	}
 
@@ -142,7 +140,9 @@
 <svelte:window on:click={makeNote}></svelte:window>
 
 <main>
-	<input class="title" bind:value={title} on:keyup={storeLocally}>
+	<div>
+		<input class="title" bind:value={title} on:keyup={storeLocally} autofocus>
+	</div>
 	<div>
 		<div class="limit">{newNote.length}/35</div>
 		<input placeholder="add a new task" maxlength="35" bind:value={newNote} on:keydown={handleKeydown}>
@@ -347,6 +347,7 @@
 	ul li {
 		width: auto;
 	}
+
 
 	@media only screen and (max-width: 600px){
 		main{
