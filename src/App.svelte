@@ -10,7 +10,7 @@
 	let completedTaskExists = false
 	let maxWordLimitReached = false
 
-	let id
+	let id = "..."
 
 	let hits
 
